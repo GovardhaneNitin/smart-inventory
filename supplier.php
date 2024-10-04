@@ -7,6 +7,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <title>Supplier Management</title>
   <?php include 'head.php'; ?>
+  <style>
+    .card:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease;
+    }
+    .card:hover .mdi-truck {
+      animation: truckAnimation 1s infinite;
+    }
+    @keyframes truckAnimation {
+      0% {
+      transform: translateX(0);
+      }
+      50% {
+      transform: translateX(10px);
+      }
+      100% {
+      transform: translateX(0);
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="container-scroller">
