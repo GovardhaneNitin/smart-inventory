@@ -15,6 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $email = mysqli_real_escape_string($con, $_POST['email']);
   $password = mysqli_real_escape_string($con, $_POST['password']);
   $confirmPassword = mysqli_real_escape_string($con, $_POST['confirmPassword']);
+  $firstName = mysqli_real_escape_string($con, $_POST['firstName']); 
+  $lastName = mysqli_real_escape_string($con, $_POST['lastName']);  
+  $gender = mysqli_real_escape_string($con, $_POST['gender']); 
   
   // By default, set role as 'Employee'
   $role = 'Employee';
@@ -36,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       echo "<script>alert('Username or Email already exists!');</script>";
     } else {
       // Insert the user into the database with default role as 'Employee'
-      $query = "INSERT INTO User (Username, Email, Password, Role) VALUES ('$username', '$email', '$hashedPassword', '$role')";
+      $query = "INSERT INTO User (Username, Email, Password, Role, FirstName, LastName, Gender) VALUES ('$username', '$email', '$hashedPassword', '$role', '$firstName', '$lastName', '$gender')";
       if (mysqli_query($con, $query)) {
         echo "<script>alert('Registration successful!'); window.location.href = 'login.php';</script>";
       } else {
@@ -67,12 +70,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                      placeholder="Email" required/>
               </div>
               <div class="form-group">
+                <input type="text" class="form-control form-control-lg" id="firstName" name="firstName"
+                     placeholder="First Name" required/>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control form-control-lg" id="lastName" name="lastName"
+                     placeholder="Last Name" required/>
+              </div>
+              <div class="form-group">
                 <input type="password" class="form-control form-control-lg" id="password" name="password"
                      placeholder="Password" required/>
               </div>
               <div class="form-group">
                 <input type="password" class="form-control form-control-lg" id="confirmPassword"
                      name="confirmPassword" placeholder="Confirm Password" required/>
+              </div>
+              <div class="form-group">
+                <select class="form-control form-control-lg" id="gender" name="gender">
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
               </div>
               <div class="mt-3 d-grid gap-2">
                 <button type="submit"
