@@ -7,8 +7,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
     exit();
 }
 
-// Set the admin ID to 1 by default
-$adminId = 1;
+$adminId = 1;  // Default admin ID
 
 // Handle promotion, demotion, and user removal
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
