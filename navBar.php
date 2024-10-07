@@ -12,17 +12,17 @@
       <span class="mdi mdi-menu"></span>
     </button>
 
-    <!-- Show the search bar on inventory.php -->
-    <?php if (basename($_SERVER['PHP_SELF']) === 'inventory.php'): ?>
+    <!-- Show the search bar on inventory.php and supplier.php -->
+    <?php if (basename($_SERVER['PHP_SELF']) === 'inventory.php' || basename($_SERVER['PHP_SELF']) === 'supplier.php'): ?>
       <div class="search-field d-none d-md-block">
-        <form id="inventorySearchForm" class="d-flex align-items-center h-100" method="GET" action="inventory.php">
-          <div class="input-group">
-            <div class="input-group-prepend bg-transparent">
-              <i class="input-group-text border-0 mdi mdi-magnify"></i>
-            </div>
-            <input type="text" id="inventorySearch" name="search" class="form-control bg-transparent border-0" placeholder="Search Inventory" />
-          </div>
-        </form>
+      <form id="searchForm" class="d-flex align-items-center h-100" method="GET" action="<?php echo basename($_SERVER['PHP_SELF']); ?>">
+        <div class="input-group">
+        <div class="input-group-prepend bg-transparent">
+          <i class="input-group-text border-0 mdi mdi-magnify"></i>
+        </div>
+        <input type="text" id="search" name="search" class="form-control bg-transparent border-0" placeholder="Search" />
+        </div>
+      </form>
       </div>
     <?php endif; ?>
 
