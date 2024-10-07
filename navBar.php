@@ -1,3 +1,5 @@
+<?php include 'dropdown.php'; ?>
+
 <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
   <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
     <a class="navbar-brand brand-logo" href="index.php">
@@ -15,21 +17,40 @@
     <!-- Show the search bar on inventory.php and supplier.php -->
     <?php if (basename($_SERVER['PHP_SELF']) === 'inventory.php' || basename($_SERVER['PHP_SELF']) === 'supplier.php'): ?>
       <div class="search-field d-none d-md-block">
-      <form id="searchForm" class="d-flex align-items-center h-100" method="GET" action="<?php echo basename($_SERVER['PHP_SELF']); ?>">
-        <div class="input-group">
-        <div class="input-group-prepend bg-transparent">
-          <i class="input-group-text border-0 mdi mdi-magnify"></i>
-        </div>
-        <input type="text" id="search" name="search" class="form-control bg-transparent border-0" placeholder="Search" />
-        </div>
-      </form>
+        <form id="searchForm" class="d-flex align-items-center h-100" method="GET" action="<?php echo basename($_SERVER['PHP_SELF']); ?>">
+          <div class="input-group">
+            <div class="input-group-prepend bg-transparent">
+              <i class="input-group-text border-0 mdi mdi-magnify"></i>
+            </div>
+            <input type="text" id="search" name="search" class="form-control bg-transparent border-0" placeholder="Search" />
+          </div>
+        </form>
       </div>
     <?php endif; ?>
 
     <ul class="navbar-nav navbar-nav-right d-none d-lg-flex">
       <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
-        <li class="nav-item text-info">
-          <span class="nav-link">Logged in as <?php echo htmlspecialchars($_SESSION['role']); ?></span>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+            <div class="profile-pic-container">
+              <?php if (!empty($user['ProfileImage'])): ?>
+                <img src="assets/images/Profile-pics/<?php echo htmlspecialchars($user['ProfileImage']); ?>" class="rounded-circle" alt="Profile Image" style="width: 30px; height: 30px; object-fit: cover; margin-right: 6px;">
+              <?php else: ?>
+                <img src="assets/images/Profile-pics/default-profile.png" class="rounded-circle" alt="Default Profile Image" style="width: 30px; height: 30px; object-fit: cover; margin-right: 6px;">
+              <?php endif; ?>
+            </div>  
+            <span class="text-primary"><?php echo htmlspecialchars($_SESSION['role']); ?></span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+            <a class="dropdown-item" href="profile.php">
+              <i class="mdi mdi-account-circle text-primary"></i>
+              &nbsp;Profile
+            </a>
+            <a class="dropdown-item" href="setting.php">
+              <i class="mdi mdi-cog text-primary"></i>
+              &nbsp;Settings
+            </a>
+          </div>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="logout.php">
