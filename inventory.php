@@ -53,9 +53,7 @@
                   $search = isset($_GET['search']) ? mysqli_real_escape_string($con, $_GET['search']) : '';
 
                   // SQL query to fetch inventory based on user role and search term
-                  if ($_SESSION['role'] === 'Admin' || $_SESSION['role'] === 'Manager') {
-                    $query = "SELECT * FROM InventoryItem WHERE ItemName LIKE '%$search%' OR Category LIKE '%$search%' ORDER BY UpdatedAt DESC";
-                  } elseif ($_SESSION['role'] === 'Employee') {
+                  if ($_SESSION['role'] === 'Admin' || $_SESSION['role'] === 'Manager' || $_SESSION['role'] === 'Employee') {
                     $query = "SELECT * FROM InventoryItem WHERE ItemName LIKE '%$search%' OR Category LIKE '%$search%' ORDER BY UpdatedAt DESC";
                   }
 
