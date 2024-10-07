@@ -1,5 +1,15 @@
 <?php include 'dropdown.php'; ?>
 
+<style>
+  .navbar-profile-pic-container img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid #007bff;
+    }
+</style>
+
 <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
   <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
     <a class="navbar-brand brand-logo" href="index.php">
@@ -32,7 +42,7 @@
       <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-            <div class="profile-pic-container">
+            <div class="navbar-profile-pic-container">
               <?php if (!empty($user['ProfileImage'])): ?>
                 <img src="assets/images/Profile-pics/<?php echo htmlspecialchars($user['ProfileImage']); ?>" class="rounded-circle" alt="Profile Image" style="width: 30px; height: 30px; object-fit: cover; margin-right: 6px;">
               <?php else: ?>
