@@ -13,12 +13,13 @@ if (isset($_POST['login'])) {
     if (mysqli_num_rows($result) > 0) {
         $user = mysqli_fetch_assoc($result);
 
-        // Verify the password Start the session and regenerate session ID
+        // Verify the password
         if (password_verify($password, $user['Password'])) {
             session_start();
             session_regenerate_id(true);
 
-            // Store user info in the session
+            // Store user info in the session, including the user ID
+            $_SESSION['user_id'] = $user['UserID'];    // Store UserID in session
             $_SESSION['username'] = $user['Username'];
             $_SESSION['email'] = $user['Email'];
             $_SESSION['role'] = $user['Role'];
