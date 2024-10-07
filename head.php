@@ -10,6 +10,24 @@ if (mysqli_connect_errno()) {
 }
 ?>
 
+<style>
+  /* Page Title Animation */
+  .page-title {
+        animation: fadeInDown 1s ease-in-out;
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css" />
 <link rel="stylesheet" href="assets/vendors/ti-icons/css/themify-icons.css" />
