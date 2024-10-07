@@ -25,7 +25,7 @@
           </div>
           <div class="container">
             <h2 class="mt-4">Add New Inventory Item</h2>
-            <form action="add_item.php" method="POST">
+            <form action="add_item.php" method="POST" enctype="multipart/form-data">
               <div class="form-group mt-2">
                 <label for="itemName">Item Name</label>
                 <input type="text" name="itemName" id="itemName" class="form-control" required>
@@ -50,6 +50,10 @@
                 <label for="supplierID">Supplier ID</label>
                 <input type="number" name="supplierID" id="supplierID" class="form-control">
               </div>
+              <div class="form-group">
+                <label for="image">Image</label>
+                <input type="file" name="image" id="image" class="form-control">
+              </div>
               <button type="submit" class="btn btn-primary mt-3">Add Item</button>
             </form>
           </div>
@@ -62,14 +66,26 @@
             $price = mysqli_real_escape_string($con, $_POST['price']);
             $supplierID = mysqli_real_escape_string($con, $_POST['supplierID']);
             $last_updated = date('Y-m-d H:i:s');
+            $imagePath = '';
+
+            // Handle image upload
+            if (!empty($_FILES['image']['name'])) {
+              $target_dir = "assets/images/InventoryItems/";
+              $target_file = $target_dir . basename($_FILES["image"]["name"]);
+              if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                $imagePath = $target_file;
+              } else {
+                echo "<script>alert('Sorry, there was an error uploading your file.');</script>";
+              }
+            }
 
             // Check if SupplierID exists
-            $supplierCheckQuery = "SELECT SupplierID FROM supplier WHERE SupplierID = '$supplierID'";
+            $supplierCheckQuery = "SELECT SupplierID FROM Supplier WHERE SupplierID = '$supplierID'";
             $supplierCheckResult = mysqli_query($con, $supplierCheckQuery);
 
             if (mysqli_num_rows($supplierCheckResult) > 0) {
               // SupplierID exists, proceed with insertion
-              $query = "INSERT INTO InventoryItem (ItemName, Category, Quantity, Location, Price, SupplierID, UpdatedAt) VALUES ('$itemName', '$category', '$quantity', '$location', '$price', '$supplierID', '$last_updated')";
+              $query = "INSERT INTO InventoryItem (ItemName, Category, Quantity, Location, Price, SupplierID, Image, UpdatedAt) VALUES ('$itemName', '$category', '$quantity', '$location', '$price', '$supplierID', '$imagePath', '$last_updated')";
               
               if (mysqli_query($con, $query)) {
                 echo "<script>alert('Item added successfully!'); window.location.href = 'inventory.php';</script>";
