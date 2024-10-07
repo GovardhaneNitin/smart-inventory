@@ -15,28 +15,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_param("i", $userID);
     $stmt->execute();
     $stmt->bind_result($passwordHash);
-    $stmt->fetch();
-    $stmt->close();
-
-    // Verify current password
-    if (!password_verify($currentPassword, $passwordHash)) {
-        $error = 'Current password is incorrect.';
-    } else if ($newPassword != $confirmPassword) {
-        $error = 'New password does not match the confirmation password.';
-    } else if (strlen($newPassword) < 8) {  // Ensure strong passwords
-        $error = 'Password must be at least 8 characters long.';
-    } else {
-        // Update the password in the database
-        $newPasswordHash = password_hash($newPassword, PASSWORD_DEFAULT);
-        $updateStmt = $con->prepare("UPDATE User SET Password = ? WHERE UserID = ?");
-        $updateStmt->bind_param("si", $newPasswordHash, $userID);
-        if ($updateStmt->execute()) {
-            $error = 'Password updated successfully.';
+    if ($stmt->fetch() && password_verify($currentPassword, $passwordHash)) {
+        if ($newPassword === $confirmPassword && strlen($newPassword) >= 8) {
+            // Proceed to update the password
+            $newPasswordHash = password_hash($newPassword, PASSWORD_DEFAULT);
+            $stmt->close(); // Close the previous statement
+            $updateStmt = $con->prepare("UPDATE User SET Password = ? WHERE UserID = ?");
+            $updateStmt->bind_param("si", $newPasswordHash, $userID);
+            if ($updateStmt->execute()) {
+                $error = 'Password updated successfully.';
+            } else {
+                $error = 'Failed to update password.';
+            }
+            $updateStmt->close();
         } else {
-            $error = 'Failed to update password.';
+            $error = 'New password does not match the confirmation password or is less than 8 characters.';
         }
-        $updateStmt->close();
+    } else {
+        $error = 'Current password is incorrect.';
     }
+    if (!$error) {
+        header("Location: index.php"); // Redirect on successful change
+        exit;
+    } else {
+        // Redirect to an error page if there's an issue
+        header("Location: pages/error-500.php");
+        exit;
+    }
+    $stmt->close();
 }
 ?>
 
@@ -62,12 +68,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             Change Password
                         </h3>
                     </div>
-
                     <div class="row justify-content-center">
                         <div class="col-md-6 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <form action="settings.php" method="POST" class="forms-sample">
+                                    <form action="" method="POST" class="forms-sample">
                                         <div class="form-group">
                                             <label for="currentPassword">Current Password</label>
                                             <input type="password" class="form-control" id="currentPassword" name="currentPassword" required>
