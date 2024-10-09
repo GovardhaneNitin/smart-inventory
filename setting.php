@@ -15,34 +15,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_param("i", $userID);
     $stmt->execute();
     $stmt->bind_result($passwordHash);
-    if ($stmt->fetch() && password_verify($currentPassword, $passwordHash)) {
-        if ($newPassword === $confirmPassword && strlen($newPassword) >= 8) {
+    $stmt->fetch();
+    $stmt->close();
+
+    // Verify current password
+    if (password_verify($currentPassword, $passwordHash)) {
+        if ($newPassword === $confirmPassword && strlen($newPassword) >= 4) {
             // Proceed to update the password
             $newPasswordHash = password_hash($newPassword, PASSWORD_DEFAULT);
-            $stmt->close(); // Close the previous statement
             $updateStmt = $con->prepare("UPDATE User SET Password = ? WHERE UserID = ?");
             $updateStmt->bind_param("si", $newPasswordHash, $userID);
+
             if ($updateStmt->execute()) {
-                $error = 'Password updated successfully.';
+                echo "<script>alert('Password updated successfully.');</script>";
             } else {
-                $error = 'Failed to update password.';
+                $error = 'Failed to update password. Please try again later.';
             }
             $updateStmt->close();
         } else {
-            $error = 'New password does not match the confirmation password or is less than 8 characters.';
+            $error = 'New password does not match the confirmation password or is less than 4 characters.';
         }
     } else {
         $error = 'Current password is incorrect.';
     }
-    if (!$error) {
-        header("Location: index.php"); // Redirect on successful change
-        exit;
-    } else {
-        // Redirect to an error page if there's an issue
-        header("Location: pages/error-500.php");
-        exit;
-    }
-    $stmt->close();
 }
 ?>
 
@@ -60,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <?php include 'sidebar.php'; ?>
             <div class="main-panel">
                 <div class="content-wrapper">
-                    <div class="page-header">
+                    <div class="page-header fade-in">
                         <h3 class="page-title">
                             <span class="page-title-icon bg-gradient-primary text-white me-2">
                                 <i class="mdi mdi-key-change"></i>
@@ -70,8 +65,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-md-6 grid-margin stretch-card">
-                            <div class="card">
+                            <div class="card fade-in">
                                 <div class="card-body">
+                                    <h4 class="card-title">Security Settings</h4>
+                                    <p class="card-description">Always keep your password strong to ensure your account remains secure.</p>
                                     <form action="" method="POST" class="forms-sample">
                                         <div class="form-group">
                                             <label for="currentPassword">Current Password</label>
@@ -80,16 +77,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <div class="form-group">
                                             <label for="newPassword">New Password</label>
                                             <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+                                            <small class="text-muted">Password must be at least 4 characters long.</small>
                                         </div>
                                         <div class="form-group">
                                             <label for="confirmPassword">Confirm New Password</label>
                                             <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
                                         </div>
-                                        <button type="submit" class="btn btn-gradient-success mr-2">Submit</button>
-                                        <button type="reset" class="btn btn-danger">Cancel</button>
+                                        <div class="justify-content-between">
+                                            <button type="submit" class="btn btn-gradient-success">Update</button>
+                                            <button type="reset" class="btn btn-danger">Cancel</button>
+                                        </div>
                                     </form>
                                     <?php if (!empty($error)): ?>
-                                        <div class="alert alert-danger mt-3"><?php echo $error; ?></div>
+                                        <div class="alert alert-danger mt-3 fade-in"><?php echo $error; ?></div>
                                     <?php endif; ?>
                                 </div>
                             </div>
