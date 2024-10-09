@@ -46,6 +46,24 @@
       </a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" href="pages/error-404.php">
+        <span class="menu-title">Sales Management</span>
+        <i class="mdi mdi-cash-multiple menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="pages/error-404.php">
+        <span class="menu-title">Product</span>
+        <i class="mdi mdi-cube-outline menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="pages/error-404.php">
+        <span class="menu-title">Reports</span>
+        <i class="mdi mdi-chart-bar menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
         <span class="menu-title">Pages</span>
         <i class="menu-arrow"></i>
