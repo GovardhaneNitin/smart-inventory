@@ -1,4 +1,19 @@
-<?php include 'dropdown.php'; ?>
+<?php
+include 'dropdown.php';
+include 'head.php';
+
+// Fetch user details if logged in
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+    $userID = $_SESSION['user_id'];
+    $stmt = $con->prepare("SELECT ProfileImage, Role FROM User WHERE UserID = ?");
+    $stmt->bind_param("i", $userID);
+    $stmt->execute();
+    $stmt->bind_result($profileImage, $userRole);
+    $stmt->fetch();
+    $stmt->close();
+}
+
+?>
 
 <style>
   .navbar-profile-pic-container img {
@@ -43,13 +58,13 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
             <div class="navbar-profile-pic-container">
-              <?php if (!empty($user['ProfileImage'])): ?>
-                <img src="assets/images/Profile-pics/<?php echo htmlspecialchars($user['ProfileImage']); ?>" class="rounded-circle" alt="Profile Image" style="width: 30px; height: 30px; object-fit: cover; margin-right: 6px;">
+              <?php if (!empty($profileImage)): ?>
+                <img src="assets/images/Profile-pics/<?php echo htmlspecialchars($profileImage); ?>" class="rounded-circle" alt="Profile Image" style="width: 30px; height: 30px; object-fit: cover; margin-right: 6px;">
               <?php else: ?>
                 <img src="assets/images/Profile-pics/default-profile.png" class="rounded-circle" alt="Default Profile Image" style="width: 30px; height: 30px; object-fit: cover; margin-right: 6px;">
               <?php endif; ?>
             </div>  
-            <span class="text-primary"><?php echo htmlspecialchars($_SESSION['role']); ?></span>
+            <span class="text-primary"><?php echo htmlspecialchars($userRole); ?></span>
           </a>
           <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
             <a class="dropdown-item" href="profile.php">
