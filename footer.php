@@ -4,6 +4,7 @@
             Mini Project <icon class="fa fa-code"></icon> Made with 💖 by Smart Inventory Group
         </span>
     </div>
+    <p class="mb-0 small text-center mt-2">&copy; 2024 Smart Inventory Group. All Rights Reserved.</p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
