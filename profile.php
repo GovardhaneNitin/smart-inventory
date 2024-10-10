@@ -108,11 +108,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['profile_image'])) {
           <div class="row justify-content-center">
             <div class="col-md-8">
               <div class="card shadow-lg">
-                <div class="card-header bg-gradient-primary text-white">
-                  <h4 class="text-center">
+                <div class="card-header p-3 bg-gradient-primary text-white">
+                  <h3 class="text-center text-uppercase font-weight-bold mt-2">
                     <?php echo !empty($user['FirstName']) ? htmlspecialchars($user['FirstName']) : '<span class="text-secondary">Add your First Name</span>'; ?> 
                     <?php echo !empty($user['LastName']) ? htmlspecialchars($user['LastName']) : '<span class="text-secondary">Add your Last Name</span>'; ?>
-                  </h4>
+                  </h3>
                 </div>
                 <div class="card-body">
                 <div class="text-center mb-4">
