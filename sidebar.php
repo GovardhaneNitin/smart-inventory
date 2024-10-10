@@ -92,16 +92,39 @@
       </div>
     </li>
 
-    <!-- Logout button in the sidebar, only shown on small screens -->
+    <!-- Account only shown on small screens -->
     <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
-      <li class="nav-item" id="sidebar-logout">
-        <a class="nav-link" href="logout.php">
-          <span class="menu-title">Logout</span>
-          <i class="mdi mdi-logout menu-icon"></i>
+      <li class="nav-item d-lg-none">
+        <a class="nav-link" data-bs-toggle="collapse" href="#profileMenu" aria-expanded="false" aria-controls="profileMenu">
+          <div class="d-flex align-items-center">
+            <i class="mdi mdi-account-circle menu-icon me-2"></i>
+            <span class="menu-title">Account</span>
+          </div>
         </a>
+        <div class="collapse" id="profileMenu">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center" href="profile.php">
+                <i class="mdi mdi-account-circle me-2"></i>
+                <span>Profile</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center" href="setting.php">
+                <i class="mdi mdi-cog me-2"></i>
+                <span>Settings</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center" href="logout.php">
+                <i class="mdi mdi-logout me-2"></i>
+                <span>Logout</span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </li>
     <?php endif; ?>
-
   </ul>
 </nav>
 </body>
