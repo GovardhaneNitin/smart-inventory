@@ -85,9 +85,6 @@
           <li class="nav-item">
             <a class="nav-link" href="pages/no_access.php"> 403 </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="profile.php"> Profile </a>
-          </li>
         </ul>
       </div>
     </li>
