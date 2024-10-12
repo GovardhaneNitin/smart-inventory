@@ -46,7 +46,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="pages/error-404.php">
+      <a class="nav-link" href="sales_transaction.php">
         <span class="menu-title">Sales Management</span>
         <i class="mdi mdi-cash-multiple menu-icon"></i>
       </a>
