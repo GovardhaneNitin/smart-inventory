@@ -39,17 +39,17 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
       <span class="mdi mdi-menu"></span>
     </button>
 
-    <!-- Show the search bar on inventory.php and supplier.php -->
-    <?php if (basename($_SERVER['PHP_SELF']) === 'inventory.php' || basename($_SERVER['PHP_SELF']) === 'supplier.php'): ?>
+    <!-- Show the search bar on inventory.php, supplier.php, and sales_transaction.php -->
+    <?php if (basename($_SERVER['PHP_SELF']) === 'inventory.php' || basename($_SERVER['PHP_SELF']) === 'supplier.php' || basename($_SERVER['PHP_SELF']) === 'sales_transaction.php'): ?>
       <div class="search-field d-none d-md-block">
-        <form id="searchForm" class="d-flex align-items-center h-100" method="GET" action="<?php echo basename($_SERVER['PHP_SELF']); ?>">
-          <div class="input-group">
-            <div class="input-group-prepend bg-transparent">
-              <i class="input-group-text border-0 mdi mdi-magnify"></i>
-            </div>
-            <input type="text" id="search" name="search" class="form-control bg-transparent border-0" placeholder="Search" />
-          </div>
-        </form>
+      <form id="searchForm" class="d-flex align-items-center h-100" method="GET" action="<?php echo basename($_SERVER['PHP_SELF']); ?>">
+        <div class="input-group">
+        <div class="input-group-prepend bg-transparent">
+          <i class="input-group-text border-0 mdi mdi-magnify"></i>
+        </div>
+        <input type="text" id="search" name="search" class="form-control bg-transparent border-0" placeholder="Search" />
+        </div>
+      </form>
       </div>
     <?php endif; ?>
 
