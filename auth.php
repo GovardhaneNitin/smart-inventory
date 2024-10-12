@@ -13,7 +13,7 @@ if (!isset($_SESSION['role'])) {
 }
 
 // List of pages that only Admins or Managers should access
-$restricted_pages = ['add_item.php', 'edit_item.php', 'delete_item.php', 'add_supplier.php', 'edit_supplier.php', 'delete_supplier.php', 'admin_manage_roles.php', 'permanent_delete_supplier.php', 'restore_supplier.php',];
+$restricted_pages = ['add_item.php', 'edit_item.php', 'delete_item.php', 'add_supplier.php', 'edit_supplier.php', 'delete_supplier.php', 'admin_manage_roles.php', 'permanent_delete_supplier.php', 'restore_supplier.php', 'add_sales_transaction.php', 'edit_sales_transaction.php', 'delete_sales_transaction.php'];
 
 // Get the current script name
 $current_page = basename($_SERVER['PHP_SELF']);
