@@ -28,15 +28,9 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="admin_manage_roles.php">
-        <span class="menu-title">Roles</span>
-        <i class="mdi mdi-account-multiple menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="inventory.php">
-        <span class="menu-title">Inventory</span>
-        <i class="mdi mdi-view-list menu-icon"></i>
+      <a class="nav-link" href="product.php">
+        <span class="menu-title">Product</span>
+        <i class="mdi mdi-cube-outline menu-icon"></i>
       </a>
     </li>
     <li class="nav-item">
@@ -46,15 +40,21 @@
       </a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" href="inventory.php">
+        <span class="menu-title">Inventory</span>
+        <i class="mdi mdi-view-list menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" href="sales_transaction.php">
         <span class="menu-title">Sales Management</span>
         <i class="mdi mdi-cash-multiple menu-icon"></i>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="pages/error-404.php">
-        <span class="menu-title">Product</span>
-        <i class="mdi mdi-cube-outline menu-icon"></i>
+      <a class="nav-link" href="admin_manage_roles.php">
+        <span class="menu-title">Roles</span>
+        <i class="mdi mdi-account-multiple menu-icon"></i>
       </a>
     </li>
     <li class="nav-item">
