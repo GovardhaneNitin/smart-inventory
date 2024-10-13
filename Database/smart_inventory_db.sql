@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 05, 2024 at 12:20 PM
+-- Generation Time: Oct 13, 2024 at 08:58 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -61,6 +61,18 @@ CREATE TABLE `inventoryitem` (
   `UpdatedAt` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `is_deleted` tinyint(4) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `inventoryitem`
+--
+
+INSERT INTO `inventoryitem` (`ItemID`, `ItemName`, `Category`, `Quantity`, `Location`, `Price`, `SupplierID`, `Image`, `CreatedAt`, `UpdatedAt`, `is_deleted`) VALUES
+(1, 'Samsung Galaxy S21', 'Smartphones', 20, 'Warehouse A', 69999.00, 1, 'assets/images/InventoryItems/Samsung-Galaxy-S21.png', '2024-10-13 18:33:48', '2024-10-13 18:51:32', 0),
+(2, 'Apple MacBook Pro 13-inch', 'Laptops', 10, 'Warehouse B', 149999.00, 2, 'assets/images/InventoryItems/Apple-MacBook-Pro-13-inch.jpg', '2024-10-13 18:36:21', '2024-10-13 18:52:34', 0),
+(3, 'Sony 55-inch LED TV', 'Televisions', 7, 'Warehouse C', 39999.00, 3, 'assets/images/InventoryItems/Sony-55-inch-LED-TV.jpg', '2024-10-13 18:38:08', '2024-10-13 18:53:15', 0),
+(4, 'Bose SoundLink Speaker', 'Audio', 10, 'Showroom', 2999.00, 4, 'assets/images/InventoryItems/Bose-SoundLink-Speaker.jpg', '2024-10-13 18:41:13', '2024-10-13 18:56:11', 0),
+(5, 'HP Pavilion Gaming Laptop', 'Laptops', 15, 'Warehouse D', 59999.00, 5, 'assets/images/InventoryItems/HP-Pavilion-Gaming-Laptop.jpg', '2024-10-13 18:43:10', '2024-10-13 18:54:13', 0),
+(6, 'Panasonic Air Conditioner', 'Home Appliances', 20, 'Warehouse E', 13999.00, 6, 'assets/images/InventoryItems/Panasonic-Air-Conditioner.jpg', '2024-10-13 18:47:04', '2024-10-13 18:56:45', 0);
 
 -- --------------------------------------------------------
 
@@ -127,6 +139,18 @@ CREATE TABLE `salestransaction` (
   `CreatedAt` timestamp NOT NULL DEFAULT current_timestamp(),
   `UpdatedAt` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `salestransaction`
+--
+
+INSERT INTO `salestransaction` (`TransactionID`, `ItemID`, `UserID`, `QuantitySold`, `TotalPrice`, `SaleDate`, `CustomerName`, `CustomerEmail`, `CustomerPhone`, `CreatedAt`, `UpdatedAt`) VALUES
+(1, 1, 1, 10, 699990.00, '2024-10-14', 'Rohit Sharma', 'rohitsharma@gmail.com', '9876543210', '2024-10-13 18:51:32', '2024-10-13 18:51:32'),
+(2, 2, 1, 5, 749995.00, '2024-10-14', 'Anjali Patel', 'anjalipatel@gmail.com', '9123456789', '2024-10-13 18:52:33', '2024-10-13 18:52:33'),
+(3, 3, 1, 3, 119997.00, '2024-10-14', 'Rajesh Kumar', 'rajeshkumar@gmail.com', '9988776655', '2024-10-13 18:53:15', '2024-10-13 18:53:15'),
+(4, 5, 1, 5, 299995.00, '2024-10-14', 'Amit Verma', 'amitverma@gmail.com', '9876512345', '2024-10-13 18:54:12', '2024-10-13 18:54:12'),
+(5, 4, 1, 15, 44985.00, '2024-10-14', 'Priya Singh', 'priyasingh@gmail.com', '9876541230', '2024-10-13 18:56:11', '2024-10-13 18:56:11'),
+(6, 6, 1, 10, 139990.00, '2024-10-14', 'Pooja Desai', 'poojadesai@gmail.com', '9988771122', '2024-10-13 18:56:44', '2024-10-13 18:56:44');
 
 -- --------------------------------------------------------
 
@@ -217,9 +241,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`UserID`, `Username`, `Password`, `Email`, `Role`, `FirstName`, `LastName`, `PhoneNumber`, `Address`, `DateOfBirth`, `ProfileImage`, `JobTitle`, `Department`, `Gender`, `CreatedAt`, `UpdatedAt`, `role_assigned_by`, `role_assigned_at`) VALUES
-(1, 'Admin', '$2y$10$W7JV0YSU05n93Dvu66rVoutR2L1mqANJrl7qxbWD5m3e6xelz5TGS', 'admin@gmail.com', 'Admin', 'Nitin', 'Govardhane', NULL, NULL, NULL, NULL, NULL, NULL, 'Male', '2024-10-05 10:07:11', '2024-10-05 10:07:11', NULL, NULL),
-(2, 'Jitesh', '$2y$10$2Ou9fydCTW1hjYKv4dncuuaQq0Ueo.jH7N4wrvoGgQ/3Qck0ix3v6', 'jitesh@gmail.com', 'Employee', 'Jitesh', 'Borse', NULL, NULL, NULL, NULL, NULL, NULL, 'Male', '2024-10-05 10:08:01', '2024-10-05 10:08:01', NULL, NULL),
-(3, 'Vedanti', '$2y$10$mVeOUZCc0djVs6sbUSPWBeqWhzMLd1V6xDIr3gMkqV5QiUVztT0PG', 'vedanti@gmail.com', 'Manager', 'Vedanti', 'Lakade', NULL, NULL, NULL, NULL, NULL, NULL, 'Female', '2024-10-05 10:08:25', '2024-10-05 10:09:06', 1, '2024-10-05 10:09:06'),
+(1, 'Admin', '$2y$10$W7JV0YSU05n93Dvu66rVoutR2L1mqANJrl7qxbWD5m3e6xelz5TGS', 'admin@gmail.com', 'Admin', 'Nitin', 'Govardhane', '9503072082', 'Nashik, Maharashtra, India.', '2000-10-30', '1_1728843703_1_1728240078_NG-logo.jpeg', 'Developer', 'Development ', 'Male', '2024-10-05 10:07:11', '2024-10-13 18:24:51', NULL, NULL),
+(2, 'Jitesh', '$2y$10$2Ou9fydCTW1hjYKv4dncuuaQq0Ueo.jH7N4wrvoGgQ/3Qck0ix3v6', 'jitesh@gmail.com', 'Employee', 'Jitesh', 'Borse', NULL, NULL, NULL, '2_1728843781_men.jpg', NULL, NULL, 'Male', '2024-10-05 10:08:01', '2024-10-13 18:23:01', NULL, NULL),
+(3, 'Vedanti', '$2y$10$mVeOUZCc0djVs6sbUSPWBeqWhzMLd1V6xDIr3gMkqV5QiUVztT0PG', 'vedanti@gmail.com', 'Manager', 'Vedanti', 'Lakade', NULL, NULL, NULL, '3_1728843741_3_1728241885_female.png', NULL, NULL, 'Female', '2024-10-05 10:08:25', '2024-10-13 18:22:21', 1, '2024-10-05 10:09:06'),
 (4, 'Shalaka', '$2y$10$at1aP.vjz2a6DcT9wIUmPeDTcbOFBGKrsGY/RUWS1Sn4TrnmMHuVS', 'shalaka@gmail.com', 'Employee', 'Shalaka', 'Nikam', NULL, NULL, NULL, NULL, NULL, NULL, 'Female', '2024-10-05 10:08:53', '2024-10-05 10:08:53', NULL, NULL);
 
 --
@@ -312,7 +336,7 @@ ALTER TABLE `activity_log`
 -- AUTO_INCREMENT for table `inventoryitem`
 --
 ALTER TABLE `inventoryitem`
-  MODIFY `ItemID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ItemID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `prediction`
@@ -336,7 +360,7 @@ ALTER TABLE `restockalert`
 -- AUTO_INCREMENT for table `salestransaction`
 --
 ALTER TABLE `salestransaction`
-  MODIFY `TransactionID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `TransactionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `supplier`
