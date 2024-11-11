@@ -27,7 +27,7 @@
           <div class="container">
             <?php
             // Check user role and only allow Admin and Manager to add sales transactions
-            if ($_SESSION['role'] === 'Admin' || $_SESSION['role'] === 'Manager') {
+            if ($_SESSION['role'] === 'Admin' || $_SESSION['role'] === 'Manager' || $_SESSION['role'] === 'Employee') {
               echo '<div class="mb-3">
                       <a href="add_sales_transaction.php" class="btn btn-primary btn-block d-md-inline-block d-block">Add New Transaction</a>
                     </div>';
