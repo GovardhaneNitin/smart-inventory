@@ -50,8 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// Fetch all items for the dropdown
-$itemsQuery = "SELECT ItemID, ItemName FROM InventoryItem WHERE is_deleted = 0";
+// Fetch all items for the dropdown, including available quantity
+$itemsQuery = "SELECT ItemID, ItemName, Quantity FROM InventoryItem WHERE is_deleted = 0";
 $itemsResult = mysqli_query($con, $itemsQuery);
 ?>
 
@@ -86,17 +86,17 @@ $itemsResult = mysqli_query($con, $itemsQuery);
                                 <form method="POST" action="" class="forms-sample">
                                     <div class="form-group">
                                         <label for="itemID">Item</label>
-                                        <select class="form-control" id="itemID" name="itemID" required>
+                                        <select class="form-control" id="itemID" name="itemID" required onchange="updateAvailableQuantity()">
                                             <option value="">Select Item</option>
                                             <?php while ($row = mysqli_fetch_assoc($itemsResult)): ?>
-                                                <option value="<?php echo $row['ItemID']; ?>">
-                                                    <?php echo htmlspecialchars($row['ItemName']); ?>
+                                                <option value="<?php echo $row['ItemID']; ?>" data-quantity="<?php echo $row['Quantity']; ?>">
+                                                    <?php echo htmlspecialchars($row['ItemName']); ?> (Available: <?php echo $row['Quantity']; ?>)
                                                 </option>
                                             <?php endwhile; ?>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="quantitySold">Quantity Sold</label>
+                                        <label for="quantitySold">Quantity Sold <span id="availableQuantityInfo"></span></label>
                                         <input type="number" class="form-control" id="quantitySold" name="quantitySold" min="1" required>
                                     </div>
                                     <div class="form-group">
@@ -133,5 +133,22 @@ $itemsResult = mysqli_query($con, $itemsQuery);
     </div>
 </div>
 <?php include 'footer.php'; ?>
+
+<script>
+// JavaScript to update available quantity when an item is selected
+function updateAvailableQuantity() {
+    const itemSelect = document.getElementById('itemID');
+    const availableQuantityInfo = document.getElementById('availableQuantityInfo');
+    const selectedItem = itemSelect.options[itemSelect.selectedIndex];
+    const availableQuantity = selectedItem.getAttribute('data-quantity');
+
+    if (availableQuantity) {
+        availableQuantityInfo.textContent = `(Available: ${availableQuantity})`;
+    } else {
+        availableQuantityInfo.textContent = '';
+    }
+}
+</script>
+
 </body>
 </html>
