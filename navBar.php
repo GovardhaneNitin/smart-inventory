@@ -4,13 +4,13 @@ include 'head.php';
 
 // Fetch user details if logged in
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
-    $userID = $_SESSION['user_id'];
-    $stmt = $con->prepare("SELECT ProfileImage, Role FROM User WHERE UserID = ?");
-    $stmt->bind_param("i", $userID);
-    $stmt->execute();
-    $stmt->bind_result($profileImage, $userRole);
-    $stmt->fetch();
-    $stmt->close();
+  $userID = $_SESSION['user_id'];
+  $stmt = $con->prepare("SELECT ProfileImage, Username FROM User WHERE UserID = ?");
+  $stmt->bind_param("i", $userID);
+  $stmt->execute();
+  $stmt->bind_result($profileImage, $username);
+  $stmt->fetch();
+  $stmt->close();
 }
 
 ?>
@@ -64,7 +64,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                 <img src="assets/images/Profile-pics/default-profile.png" class="rounded-circle" alt="Default Profile Image" style="width: 30px; height: 30px; object-fit: cover; margin-right: 6px;">
               <?php endif; ?>
             </div>  
-            <span class="text-primary"><?php echo htmlspecialchars($userRole); ?></span>
+            <span class="text-primary"><?php echo htmlspecialchars($username); ?></span>
           </a>
           <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
             <a class="dropdown-item" href="profile.php">
