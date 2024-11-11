@@ -21,6 +21,12 @@ $totalSales = mysqli_fetch_assoc($totalSales)['total'];
 
 $salesTransactionCount = mysqli_query($con, "SELECT COUNT(*) AS count FROM SalesTransaction");
 $salesTransactionCount = mysqli_fetch_assoc($salesTransactionCount)['count'];
+if ($role === 'Admin' || $role === 'Manager') {
+    $activeUserCount = mysqli_query($con, "SELECT COUNT(*) AS count FROM User");
+    $activeUserCount = mysqli_fetch_assoc($activeUserCount)['count'];
+}
+$pendingRestockAlertCount = mysqli_query($con, "SELECT COUNT(*) AS count FROM RestockAlert WHERE Status = 'Pending'");
+$pendingRestockAlertCount = mysqli_fetch_assoc($pendingRestockAlertCount)['count'];
 ?>
 
 <!DOCTYPE html>
@@ -79,14 +85,14 @@ $salesTransactionCount = mysqli_fetch_assoc($salesTransactionCount)['count'];
                         <span class="page-title-icon bg-gradient-primary text-white me-2">
                             <i class="mdi mdi-home"></i>
                         </span>
-                        Dashboard
+                        <?php echo htmlspecialchars($role); ?> Dashboard
                     </h3>
                 </div>
 
                 <!-- Common Dashboard Content -->
                 <div class="row">
                     <div class="col-md-4 stretch-card grid-margin">
-                        <div class="card bg-gradient-danger card-img-holder text-white">
+                        <div class="card bg-gradient-danger card-img-holder text-white" onclick="window.location.href='sales_transaction.php';" style="cursor: pointer;">
                             <div class="card-body">
                                 <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
                                 <h4 class="font-weight-normal mb-3">Total Sales <i class="mdi mdi-cash mdi-24px float-end"></i></h4>
@@ -95,8 +101,32 @@ $salesTransactionCount = mysqli_fetch_assoc($salesTransactionCount)['count'];
                             </div>
                         </div>
                     </div>
+                    <!-- Admin-specific Dashboard Content -->
+                    <?php if ($role === 'Admin'): ?>
+                        <div class="col-md-4 stretch-card grid-margin">
+                            <div class="card bg-gradient-success card-img-holder text-white" onclick="window.location.href='admin_manage_roles.php';" style="cursor: pointer;">
+                                <div class="card-body">
+                                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
+                                    <h4 class="font-weight-normal mb-3">Active Users <i class="mdi mdi-account-group mdi-24px float-end"></i></h4>
+                                    <h2 class="mb-5"><?php echo $activeUserCount; ?></h2>
+                                    <h6 class="card-text">Total number of active users in the system</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+
+                        <div class="col-md-4 stretch-card grid-margin">
+                            <div class="card bg-gradient-warning card-img-holder text-white" onclick="window.location.href='view_alerts.php';" style="cursor: pointer;">
+                                <div class="card-body">
+                                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
+                                    <h4 class="font-weight-normal mb-3">Pending Restock Alerts <i class="mdi mdi-bell-alert mdi-24px float-end"></i></h4>
+                                    <h2 class="mb-5"><?php echo $pendingRestockAlertCount; ?></h2>
+                                    <h6 class="card-text">Total number of pending restock alerts</h6>
+                                </div>
+                            </div>
+                        </div>
                     <div class="col-md-4 stretch-card grid-margin">
-                        <div class="card bg-gradient-info card-img-holder text-white">
+                        <div class="card bg-gradient-info card-img-holder text-white" onclick="window.location.href='sales_transaction.php';" style="cursor: pointer;">
                             <div class="card-body">
                                 <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
                                 <h4 class="font-weight-normal mb-3">Sales Transactions <i class="mdi mdi-cart mdi-24px float-end"></i></h4>
@@ -106,7 +136,7 @@ $salesTransactionCount = mysqli_fetch_assoc($salesTransactionCount)['count'];
                         </div>
                     </div>
                     <div class="col-md-4 stretch-card grid-margin">
-                        <div class="card bg-gradient-primary card-img-holder text-white">
+                        <div class="card bg-gradient-primary card-img-holder text-white" onclick="window.location.href='inventory.php';" style="cursor: pointer;">
                             <div class="card-body">
                                 <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
                                 <h4 class="font-weight-normal mb-3">Inventory Items <i class="mdi mdi-cube mdi-24px float-end"></i></h4>
@@ -116,7 +146,7 @@ $salesTransactionCount = mysqli_fetch_assoc($salesTransactionCount)['count'];
                         </div>
                     </div>
                     <div class="col-md-4 stretch-card grid-margin">
-                        <div class="card bg-gradient-secondary card-img-holder text-white">
+                        <div class="card bg-gradient-secondary card-img-holder text-white" onclick="window.location.href='supplier.php';" style="cursor: pointer;">
                             <div class="card-body">
                                 <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
                                 <h4 class="font-weight-normal mb-3">Suppliers <i class="mdi mdi-truck mdi-24px float-end"></i></h4>
@@ -125,95 +155,7 @@ $salesTransactionCount = mysqli_fetch_assoc($salesTransactionCount)['count'];
                             </div>
                         </div>
                     </div>
-                    <!-- Other sections common to all users -->
                 </div>
-
-                <!-- Section for Admin (Admin can view Admin, Manager, and Employee details) -->
-                <?php if ($role === 'Admin'): ?>
-                    <div class="row">
-                        <!-- Admin-specific data -->
-                        <div class="col-md-4 stretch-card grid-margin">
-                            <div class="card bg-gradient-info card-img-holder text-white">
-                                <div class="card-body">
-                                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
-                                    <h4 class="font-weight-normal mb-3">Admin Reports <i class="mdi mdi-bookmark-outline mdi-24px float-end"></i></h4>
-                                    <h2 class="mb-5">Admin Data</h2>
-                                    <h6 class="card-text">Detailed report for Admins</h6>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Manager-specific data (visible to Admin as well) -->
-                        <div class="col-md-4 stretch-card grid-margin">
-                            <div class="card bg-gradient-success card-img-holder text-white">
-                                <div class="card-body">
-                                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
-                                    <h4 class="font-weight-normal mb-3">Manager Reports <i class="mdi mdi-diamond mdi-24px float-end"></i></h4>
-                                    <h2 class="mb-5">Manager Data</h2>
-                                    <h6 class="card-text">Manager-specific details</h6>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Employee-specific data (visible to Admin as well) -->
-                        <div class="col-md-4 stretch-card grid-margin">
-                            <div class="card bg-gradient-warning card-img-holder text-white">
-                                <div class="card-body">
-                                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
-                                    <h4 class="font-weight-normal mb-3">Employee Details <i class="mdi mdi-account mdi-24px float-end"></i></h4>
-                                    <h2 class="mb-5">Employee Data</h2>
-                                    <h6 class="card-text">Employee-specific information</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <?php endif; ?>
-
-                <!-- Section for Manager (Manager can view Manager and Employee details only) -->
-                <?php if ($role === 'Manager'): ?>
-                    <div class="row">
-                        <!-- Manager-specific data -->
-                        <div class="col-md-4 stretch-card grid-margin">
-                            <div class="card bg-gradient-success card-img-holder text-white">
-                                <div class="card-body">
-                                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
-                                    <h4 class="font-weight-normal mb-3">Manager Reports <i class="mdi mdi-diamond mdi-24px float-end"></i></h4>
-                                    <h2 class="mb-5">Manager Data</h2>
-                                    <h6 class="card-text">Manager-specific details</h6>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Employee-specific data (visible to Manager as well) -->
-                        <div class="col-md-4 stretch-card grid-margin">
-                            <div class="card bg-gradient-warning card-img-holder text-white">
-                                <div class="card-body">
-                                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
-                                    <h4 class="font-weight-normal mb-3">Employee Details <i class="mdi mdi-account mdi-24px float-end"></i></h4>
-                                    <h2 class="mb-5">Employee Data</h2>
-                                    <h6 class="card-text">Employee-specific information</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <?php endif; ?>
-
-                <!-- Section for Employee (Employee can view only his own details) -->
-                <?php if ($role === 'Employee'): ?>
-                    <div class="row">
-                        <!-- Employee-specific data -->
-                        <div class="col-md-4 stretch-card grid-margin">
-                            <div class="card bg-gradient-warning card-img-holder text-white">
-                                <div class="card-body">
-                                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
-                                    <h4 class="font-weight-normal mb-3">Your Details <i class="mdi mdi-account mdi-24px float-end"></i></h4>
-                                    <h2 class="mb-5">Your Data</h2>
-                                    <h6 class="card-text">Details specific to your account</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <?php endif; ?>
 
                 <!-- Common content continues below -->
                 <div class="row">
