@@ -84,7 +84,7 @@ $totalRevenueJson = json_encode($totalRevenue);
                             <div class="card card3">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center mb-4">
-                                        <img src="assets/images/InventoryItems/<?php echo htmlspecialchars($row['Image']); ?>" alt="<?php echo htmlspecialchars($row['ItemName']); ?>" class="img-fluid" style="width: 70px; height: 70px; object-fit: cover;">
+                                        <img src="<?php echo htmlspecialchars($row['Image']); ?>" alt="<?php echo htmlspecialchars($row['ItemName']); ?>" class="img-fluid" style="width: 70px; height: 70px; object-fit: cover;">
                                         <div class="ms-3">
                                             <h4 class="card-title mb-0"><?php echo htmlspecialchars($row['ItemName']); ?></h4>
                                             <p class="text-muted"><?php echo htmlspecialchars($row['Category']); ?></p>
@@ -122,7 +122,7 @@ $totalRevenueJson = json_encode($totalRevenue);
                                             <?php foreach ($restProducts as $product): ?>
                                                 <tr>
                                                     <td>
-                                                        <img src="assets/images/InventoryItems/<?php echo htmlspecialchars($product['Image']); ?>" class="img-fluid rounded" style="width: 50px; height: 50px; object-fit: cover;" alt="Product Image">
+                                                        <img src="<?php echo htmlspecialchars($product['Image']); ?>" class="img-fluid rounded" style="width: 50px; height: 50px; object-fit: cover;" alt="Product Image">
                                                     </td>
                                                     <td><?php echo htmlspecialchars($product['ItemName']); ?></td>
                                                     <td><?php echo $product['TotalSold']; ?></td>
