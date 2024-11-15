@@ -67,12 +67,6 @@
     </li>
     <li class="nav-item">
       <a class="nav-link" href="pages/error-404.php">
-        <span class="menu-title">Restock Alert</span>
-        <i class="mdi mdi-alert menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="pages/error-404.php">
         <span class="menu-title">Reports</span>
         <i class="mdi mdi-chart-bar menu-icon"></i>
       </a>

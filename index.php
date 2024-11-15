@@ -25,8 +25,6 @@ if ($role === 'Admin' || $role === 'Manager') {
     $activeUserCount = mysqli_query($con, "SELECT COUNT(*) AS count FROM User");
     $activeUserCount = mysqli_fetch_assoc($activeUserCount)['count'];
 }
-$pendingRestockAlertCount = mysqli_query($con, "SELECT COUNT(*) AS count FROM RestockAlert WHERE Status = 'Pending'");
-$pendingRestockAlertCount = mysqli_fetch_assoc($pendingRestockAlertCount)['count'];
 ?>
 
 <!DOCTYPE html>
@@ -114,17 +112,6 @@ $pendingRestockAlertCount = mysqli_fetch_assoc($pendingRestockAlertCount)['count
                             </div>
                         </div>
                         <?php endif; ?>
-
-                        <div class="col-md-4 stretch-card grid-margin">
-                            <div class="card bg-gradient-warning card-img-holder text-white" onclick="window.location.href='view_alerts.php';" style="cursor: pointer;">
-                                <div class="card-body">
-                                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
-                                    <h4 class="font-weight-normal mb-3">Pending Restock Alerts <i class="mdi mdi-bell-alert mdi-24px float-end"></i></h4>
-                                    <h2 class="mb-5"><?php echo $pendingRestockAlertCount; ?></h2>
-                                    <h6 class="card-text">Total number of pending restock alerts</h6>
-                                </div>
-                            </div>
-                        </div>
                     <div class="col-md-4 stretch-card grid-margin">
                         <div class="card bg-gradient-info card-img-holder text-white" onclick="window.location.href='sales_transaction.php';" style="cursor: pointer;">
                             <div class="card-body">
