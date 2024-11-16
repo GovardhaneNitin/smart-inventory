@@ -66,7 +66,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="pages/error-404.php">
+      <a class="nav-link" href="report.php">
         <span class="menu-title">Reports</span>
         <i class="mdi mdi-chart-bar menu-icon"></i>
       </a>
