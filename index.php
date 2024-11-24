@@ -34,10 +34,6 @@ if ($role === 'Admin' || $role === 'Manager') {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <title>Dashboard</title>
     <style>
-    .card:hover {
-      transform: scale(1.05);
-      transition: transform 0.3s ease;
-    }
     .card:hover i {
         animation: bounce 1s ease-in-out;
     }
@@ -90,7 +86,7 @@ if ($role === 'Admin' || $role === 'Manager') {
                 <!-- Common Dashboard Content -->
                 <div class="row">
                     <div class="col-md-4 stretch-card grid-margin">
-                        <div class="card bg-gradient-danger card-img-holder text-white" onclick="window.location.href='sales_transaction.php';" style="cursor: pointer;">
+                        <div class="card shadow bg-gradient-danger card-img-holder text-white" onclick="window.location.href='sales_transaction.php';" style="cursor: pointer;">
                             <div class="card-body">
                                 <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
                                 <h4 class="font-weight-normal mb-3">Total Sales <i class="mdi mdi-cash mdi-24px float-end"></i></h4>
@@ -102,7 +98,7 @@ if ($role === 'Admin' || $role === 'Manager') {
                     <!-- Admin-specific Dashboard Content -->
                     <?php if ($role === 'Admin'): ?>
                         <div class="col-md-4 stretch-card grid-margin">
-                            <div class="card bg-gradient-success card-img-holder text-white" onclick="window.location.href='admin_manage_roles.php';" style="cursor: pointer;">
+                            <div class="card shadow bg-gradient-success card-img-holder text-white" onclick="window.location.href='admin_manage_roles.php';" style="cursor: pointer;">
                                 <div class="card-body">
                                     <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
                                     <h4 class="font-weight-normal mb-3">Active Users <i class="mdi mdi-account-group mdi-24px float-end"></i></h4>
@@ -113,7 +109,7 @@ if ($role === 'Admin' || $role === 'Manager') {
                         </div>
                         <?php endif; ?>
                     <div class="col-md-4 stretch-card grid-margin">
-                        <div class="card bg-gradient-info card-img-holder text-white" onclick="window.location.href='sales_transaction.php';" style="cursor: pointer;">
+                        <div class="card shadow bg-gradient-info card-img-holder text-white" onclick="window.location.href='sales_transaction.php';" style="cursor: pointer;">
                             <div class="card-body">
                                 <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
                                 <h4 class="font-weight-normal mb-3">Sales Transactions <i class="mdi mdi-cart mdi-24px float-end"></i></h4>
@@ -123,7 +119,7 @@ if ($role === 'Admin' || $role === 'Manager') {
                         </div>
                     </div>
                     <div class="col-md-4 stretch-card grid-margin">
-                        <div class="card bg-gradient-primary card-img-holder text-white" onclick="window.location.href='inventory.php';" style="cursor: pointer;">
+                        <div class="card shadow bg-gradient-primary card-img-holder text-white" onclick="window.location.href='inventory.php';" style="cursor: pointer;">
                             <div class="card-body">
                                 <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
                                 <h4 class="font-weight-normal mb-3">Inventory Items <i class="mdi mdi-cube mdi-24px float-end"></i></h4>
@@ -133,7 +129,7 @@ if ($role === 'Admin' || $role === 'Manager') {
                         </div>
                     </div>
                     <div class="col-md-4 stretch-card grid-margin">
-                        <div class="card bg-gradient-secondary card-img-holder text-white" onclick="window.location.href='supplier.php';" style="cursor: pointer;">
+                        <div class="card shadow bg-gradient-secondary card-img-holder text-white" onclick="window.location.href='supplier.php';" style="cursor: pointer;">
                             <div class="card-body">
                                 <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
                                 <h4 class="font-weight-normal mb-3">Suppliers <i class="mdi mdi-truck mdi-24px float-end"></i></h4>
@@ -147,88 +143,79 @@ if ($role === 'Admin' || $role === 'Manager') {
                 <!-- Common content continues below -->
                 <div class="row">
                     <!-- Low Stock Items Section -->
-                    <div class="col-md-7 grid-margin stretch-card">
-                        <div class="card">
+                    <div class="col-md-5 grid-margin stretch-card">
+                        <div class="card shadow border-0" style="border-radius: 15px;">
                             <div class="card-body">
-                                <h4 class="card-title">Low Stock Inventory Items</h4>
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Item Name</th>
-                                                <th>Quantity</th>
-                                                <th>Location</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            // Fetch low stock items
-                                            $lowStockQuery = "SELECT * FROM InventoryItem WHERE Quantity < 10 AND is_deleted = 0 ORDER BY Quantity ASC LIMIT 5";
-                                            $lowStockResult = mysqli_query($con, $lowStockQuery);
-                                            
-                                            if (mysqli_num_rows($lowStockResult) > 0) {
-                                                $counter = 1;
-                                                while ($row = mysqli_fetch_assoc($lowStockResult)) {
-                                                    echo "<tr>";
-                                                    echo "<td>" . $counter++ . "</td>";
-                                                    echo "<td>" . htmlspecialchars($row['ItemName']) . "</td>";
-                                                    echo "<td>" . htmlspecialchars($row['Quantity']) . "</td>";
-                                                    echo "<td>" . htmlspecialchars($row['Location']) . "</td>";
-                                                    echo "</tr>";
-                                                }
-                                            } else {
-                                                echo "<tr><td colspan='4' class='text-center'>All items are sufficiently stocked.</td></tr>";
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
+                                <h4 class="card-title text-primary mb-4">
+                                    <i class="mdi mdi-alert-circle text-danger me-2"></i>
+                                    Low Stock Inventory Items
+                                </h4>
+                                <div class="low-stock-items">
+                                    <?php
+                                    $lowStockQuery = "SELECT * FROM InventoryItem WHERE Quantity < 10 AND is_deleted = 0 ORDER BY Quantity ASC LIMIT 5";
+                                    $lowStockResult = mysqli_query($con, $lowStockQuery);
+                                    
+                                    if (mysqli_num_rows($lowStockResult) > 0) {
+                                        while ($row = mysqli_fetch_assoc($lowStockResult)) {
+                                            echo '<div class="card mb-3 border-0 bg-light">';
+                                            echo '<div class="card-body p-3">';
+                                            echo '<div class="d-flex justify-content-between align-items-center">';
+                                            echo '<div>';
+                                            echo '<h6 class="mb-1">' . htmlspecialchars($row['ItemName']) . '</h6>';
+                                            echo '<small class="text-muted">Location: ' . htmlspecialchars($row['Location']) . '</small>';
+                                            echo '</div>';
+                                            echo '<span class="badge bg-danger">' . htmlspecialchars($row['Quantity']) . ' items</span>';
+                                            echo '</div>';
+                                            echo '</div>';
+                                            echo '</div>';
+                                        }
+                                    } else {
+                                        echo '<div class="text-center text-success p-3">All items are sufficiently stocked.</div>';
+                                    }
+                                    ?>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Recent Sales Transactions Section -->
-                    <div class="col-md-5 grid-margin stretch-card">
-                        <div class="card">
+                    <div class="col-md-7 grid-margin stretch-card">
+                        <div class="card shadow border-0" style="border-radius: 15px;">
                             <div class="card-body">
-                                <h4 class="card-title">Recent Sales Transactions</h4>
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Item</th>
-                                                <th>Quantity Sold</th>
-                                                <th>Date</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            // Fetch recent sales transactions
-                                            $recentSalesQuery = "SELECT s.TransactionID, i.ItemName, s.QuantitySold, s.SaleDate
-                                                                 FROM SalesTransaction s
-                                                                 JOIN InventoryItem i ON s.ItemID = i.ItemID
-                                                                 ORDER BY s.SaleDate DESC
-                                                                 LIMIT 5";
-                                            $recentSalesResult = mysqli_query($con, $recentSalesQuery);
+                                <h4 class="card-title text-primary mb-4">
+                                    <i class="mdi mdi-cash-multiple text-success me-2"></i>
+                                    Recent Sales Transactions
+                                </h4>
+                                <div class="recent-sales">
+                                    <?php
+                                    $recentSalesQuery = "SELECT s.TransactionID, i.ItemName, s.QuantitySold, s.SaleDate, s.TotalPrice
+                                                        FROM SalesTransaction s
+                                                        JOIN InventoryItem i ON s.ItemID = i.ItemID
+                                                        ORDER BY s.SaleDate DESC
+                                                        LIMIT 5";
+                                    $recentSalesResult = mysqli_query($con, $recentSalesQuery);
 
-                                            if (mysqli_num_rows($recentSalesResult) > 0) {
-                                                $counter = 1;
-                                                while ($row = mysqli_fetch_assoc($recentSalesResult)) {
-                                                    echo "<tr>";
-                                                    echo "<td>" . $counter++ . "</td>";
-                                                    echo "<td>" . htmlspecialchars($row['ItemName']) . "</td>";
-                                                    echo "<td>" . htmlspecialchars($row['QuantitySold']) . "</td>";
-                                                    echo "<td>" . htmlspecialchars($row['SaleDate']) . "</td>";
-                                                    echo "</tr>";
-                                                }
-                                            } else {
-                                                echo "<tr><td colspan='4' class='text-center'>No recent sales transactions.</td></tr>";
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
+                                    if (mysqli_num_rows($recentSalesResult) > 0) {
+                                        while ($row = mysqli_fetch_assoc($recentSalesResult)) {
+                                            echo '<div class="card mb-3 border-0 bg-light">';
+                                            echo '<div class="card-body p-3">';
+                                            echo '<div class="d-flex justify-content-between align-items-center">';
+                                            echo '<div>';
+                                            echo '<h6 class="mb-1">' . htmlspecialchars($row['ItemName']) . '</h6>';
+                                            echo '<small class="text-muted">Date: ' . date('M d, Y', strtotime($row['SaleDate'])) . '</small>';
+                                            echo '</div>';
+                                            echo '<div class="text-end">';
+                                            echo '<span class="badge bg-success">' . htmlspecialchars($row['QuantitySold']) . ' units</span>';
+                                            echo '<div class="mt-1"><small class="text-primary">₹' . number_format($row['TotalPrice'], 2) . '</small></div>';
+                                            echo '</div>';
+                                            echo '</div>';
+                                            echo '</div>';
+                                            echo '</div>';
+                                        }
+                                    } else {
+                                        echo '<div class="text-center text-muted p-3">No recent sales transactions.</div>';
+                                    }
+                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -238,41 +225,39 @@ if ($role === 'Admin' || $role === 'Manager') {
                 <!-- Supplier Updates Section -->
                 <div class="row">
                     <div class="col-md-7 grid-margin stretch-card">
-                        <div class="card">
+                        <div class="card shadow border-0" style="border-radius: 15px;">
                             <div class="card-body">
-                                <h4 class="card-title">Recent Supplier Updates</h4>
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Supplier Name</th>
-                                                <th>Contact Person</th>
-                                                <th>Last Updated</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            // Fetch recent supplier updates
-                                            $supplierUpdateQuery = "SELECT * FROM Supplier WHERE is_deleted = 0 ORDER BY UpdatedAt DESC LIMIT 5";
-                                            $supplierUpdateResult = mysqli_query($con, $supplierUpdateQuery);
+                                <h4 class="card-title text-primary mb-4">
+                                    <i class="mdi mdi-truck-delivery text-info me-2"></i>
+                                    Recent Supplier Updates
+                                </h4>
+                                <div class="supplier-updates">
+                                    <?php
+                                    // Fetch recent supplier updates
+                                    $supplierUpdateQuery = "SELECT * FROM Supplier WHERE is_deleted = 0 ORDER BY UpdatedAt DESC LIMIT 5";
+                                    $supplierUpdateResult = mysqli_query($con, $supplierUpdateQuery);
 
-                                            if (mysqli_num_rows($supplierUpdateResult) > 0) {
-                                                $counter = 1;
-                                                while ($row = mysqli_fetch_assoc($supplierUpdateResult)) {
-                                                    echo "<tr>";
-                                                    echo "<td>" . $counter++ . "</td>";
-                                                    echo "<td>" . htmlspecialchars($row['SupplierName']) . "</td>";
-                                                    echo "<td>" . htmlspecialchars($row['ContactPerson']) . "</td>";
-                                                    echo "<td>" . htmlspecialchars($row['UpdatedAt']) . "</td>";
-                                                    echo "</tr>";
-                                                }
-                                            } else {
-                                                echo "<tr><td colspan='4' class='text-center'>No recent updates on suppliers.</td></tr>";
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
+                                    if (mysqli_num_rows($supplierUpdateResult) > 0) {
+                                        while ($row = mysqli_fetch_assoc($supplierUpdateResult)) {
+                                            echo '<div class="card mb-3 border-0 bg-light hover-effect">';
+                                            echo '<div class="card-body p-3">';
+                                            echo '<div class="d-flex justify-content-between align-items-center">';
+                                            echo '<div>';
+                                            echo '<h6 class="mb-1 text-primary">' . htmlspecialchars($row['SupplierName']) . '</h6>';
+                                            echo '<small class="text-muted">Contact: ' . htmlspecialchars($row['ContactPerson']) . '</small>';
+                                            echo '</div>';
+                                            echo '<div class="text-end">';
+                                            echo '<small class="text-success">Last Updated</small>';
+                                            echo '<div class="mt-1"><small class="text-muted">' . date('M d, Y', strtotime($row['UpdatedAt'])) . '</small></div>';
+                                            echo '</div>';
+                                            echo '</div>';
+                                            echo '</div>';
+                                            echo '</div>';
+                                        }
+                                    } else {
+                                        echo '<div class="text-center text-muted p-3">No recent updates on suppliers.</div>';
+                                    }
+                                    ?>
                                 </div>
                             </div>
                         </div>
