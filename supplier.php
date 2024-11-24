@@ -185,40 +185,76 @@
             <?php endif; ?>
           </div>
 
-          <div class="container mt-4">
-            <h3>Supplier Activity Log</h3>
-            <table class="table table-bordered mt-3">
-              <thead>
+            <div class="container mt-4">
+            <div class="card">
+              <div class="card-header bg-gradient-primary text-white">
+              <h3 class="mb-0">
+              <i class="mdi mdi-history me-2"></i>
+              Supplier Activity Log
+              </h3>
+              </div>
+              <div class="card-body">
+              <div class="table-responsive">
+              <table class="table table-striped">
+              <thead class="bg-light">
                 <tr>
-                  <th>Supplier Name</th>
-                  <th>Action</th>
-                  <th>Role</th>
-                  <th>Timestamp</th>
+                <th>
+                <i class="mdi mdi-truck me-1"></i>
+                Supplier Name
+                </th>
+                <th>
+                <i class="mdi mdi-clipboard-text me-1"></i>
+                Action
+                </th>
+                <th>
+                <i class="mdi mdi-account-circle me-1"></i>
+                Role
+                </th>
+                <th>
+                <i class="mdi mdi-clock-outline me-1"></i>
+                Timestamp
+                </th>
                 </tr>
               </thead>
               <tbody>
                 <?php
-                $logQuery = "SELECT s.SupplierName, l.action, l.role, l.timestamp
-                             FROM supplier_activity_log l
-                             JOIN Supplier s ON l.supplier_id = s.SupplierID
-                             ORDER BY l.timestamp DESC";
+                $logQuery = "SELECT s.SupplierName, l.action, l.role, l.timestamp 
+                   FROM supplier_activity_log l
+                   JOIN Supplier s ON l.supplier_id = s.SupplierID
+                   ORDER BY l.timestamp DESC";
                 $logResult = mysqli_query($con, $logQuery);
                 if (mysqli_num_rows($logResult) > 0) {
-                  while ($log = mysqli_fetch_assoc($logResult)) {
-                    echo '<tr>';
-                    echo '<td>' . $log['SupplierName'] . '</td>';
-                    echo '<td>' . $log['action'] . '</td>';
-                    echo '<td>' . $log['role'] . '</td>';
-                    echo '<td>' . $log['timestamp'] . '</td>';
-                    echo '</tr>';
-                  }
+                while ($log = mysqli_fetch_assoc($logResult)) {
+                // Define action color
+                $actionColor = 'text-info';
+                if (strpos(strtolower($log['action']), 'delete') !== false) {
+                $actionColor = 'text-danger';
+                } elseif (strpos(strtolower($log['action']), 'add') !== false) {
+                $actionColor = 'text-success';
+                } elseif (strpos(strtolower($log['action']), 'update') !== false) {
+                $actionColor = 'text-warning';
+                }
+                
+                echo '<tr class="align-middle">';
+                echo '<td>' . $log['SupplierName'] . '</td>';
+                echo '<td class="' . $actionColor . '">' . $log['action'] . '</td>';
+                echo '<td><span class="badge bg-gradient-info">' . $log['role'] . '</span></td>';
+                echo '<td><small class="text-muted">' . date('F j, Y g:i A', strtotime($log['timestamp'])) . '</small></td>';
+                echo '</tr>';
+                }
                 } else {
-                  echo '<tr><td colspan="4" class="text-center">No activity logs available.</td></tr>';
+                echo '<tr><td colspan="4" class="text-center text-muted">
+                  <i class="mdi mdi-alert-circle-outline me-1"></i>
+                  No activity logs available.
+                  </td></tr>';
                 }
                 ?>
               </tbody>
-            </table>
-          </div>
+              </table>
+              </div>
+              </div>
+            </div>
+            </div>
         </div>
       </div>
     </div>
