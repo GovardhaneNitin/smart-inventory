@@ -68,6 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
     padding-top: 10px;  
     padding-bottom: 10px;
     font-size: 0.9rem; 
+    border: none;
 }
 
 /* Animation Section Styles */
