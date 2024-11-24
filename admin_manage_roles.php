@@ -93,7 +93,7 @@ $usersResult = mysqli_query($con, $usersQuery);
                     <div class="container">
                         <div class="card">
                             <div class="card-body">
-                                <table class="table table-hover">
+                                <table class="table table-striped">
                                     <thead class="bg-gradient-primary text-white">
                                         <tr>
                                             <th>Username</th>
