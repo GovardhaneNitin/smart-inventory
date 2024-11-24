@@ -24,78 +24,84 @@
             </h3>
           </div>
 
-          <div class="container">
+            <div class="container">
             <?php
             // Check user role and only allow Admin and Manager to add sales transactions
             if ($_SESSION['role'] === 'Admin' || $_SESSION['role'] === 'Manager' || $_SESSION['role'] === 'Employee') {
               echo '<div class="mb-3">
-                      <a href="add_sales_transaction.php" class="btn btn-primary btn-block d-md-inline-block d-block">Add New Transaction</a>
-                    </div>';
+                  <a href="add_sales_transaction.php" class="btn btn-gradient-primary btn-lg">
+                  <i class="mdi mdi-plus"></i> Add New Transaction
+                  </a>
+                </div>';
             }
             ?>
 
-            <div class="table-responsive">
-              <table class="table table-bordered table-striped">
+            <div class="card">
+              <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover table-striped">
                 <thead>
-                  <tr>
-                    <th>Transaction ID</th>
-                    <th>Item Name</th>
-                    <th>Quantity Sold</th>
-                    <th>Total Price</th>
-                    <th>Sale Date</th>
-                    <th>Customer Name</th>
-                    <th>Actions</th>
+                  <tr class="bg-gradient-primary text-white">
+                  <th class="font-weight-bold">Transaction ID</th>
+                  <th class="font-weight-bold">Item Name</th>
+                  <th class="font-weight-bold">Quantity Sold</th>
+                  <th class="font-weight-bold">Total Price</th>
+                  <th class="font-weight-bold">Sale Date</th>
+                  <th class="font-weight-bold">Customer Name</th>
+                  <th class="font-weight-bold">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php
-                  // Check if the search parameter is present
                   $search = isset($_GET['search']) ? mysqli_real_escape_string($con, $_GET['search']) : '';
 
-                  // SQL query to fetch sales transactions based on user role and search term
                   if ($_SESSION['role'] === 'Admin' || $_SESSION['role'] === 'Manager' || $_SESSION['role'] === 'Employee') {
-                    $query = "SELECT st.*, ii.ItemName FROM SalesTransaction st 
-                              LEFT JOIN InventoryItem ii ON st.ItemID = ii.ItemID 
-                              WHERE ii.ItemName LIKE '%$search%' OR st.CustomerName LIKE '%$search%' 
-                              ORDER BY st.UpdatedAt DESC";
+                  $query = "SELECT st.*, ii.ItemName FROM SalesTransaction st 
+                        LEFT JOIN InventoryItem ii ON st.ItemID = ii.ItemID 
+                        WHERE ii.ItemName LIKE '%$search%' OR st.CustomerName LIKE '%$search%' 
+                        ORDER BY st.UpdatedAt DESC";
                   }
 
                   if (isset($query)) {
-                    $result = mysqli_query($con, $query);
+                  $result = mysqli_query($con, $query);
 
-                    // Display the results in the table
-                    if (mysqli_num_rows($result) > 0) {
-                      while ($row = mysqli_fetch_assoc($result)) {
-                        echo "<tr>";
-                        echo "<td>" . $row['TransactionID'] . "</td>";
-                        echo "<td>" . $row['ItemName'] . "</td>";
-                        echo "<td>" . $row['QuantitySold'] . "</td>";
-                        echo "<td>₹" . number_format($row['TotalPrice'], 2) . "</td>";
-                        echo "<td>" . $row['SaleDate'] . "</td>";
-                        echo "<td>" . $row['CustomerName'] . "</td>";
+                  if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                    echo "<tr class='align-middle'>";
+                    echo "<td><span class='badge badge-primary'>" . $row['TransactionID'] . "</span></td>";
+                    echo "<td>" . $row['ItemName'] . "</td>";
+                    echo "<td><span class='badge badge-success'>" . $row['QuantitySold'] . "</span></td>";
+                    echo "<td><span class='text-success font-weight-bold'>₹" . number_format($row['TotalPrice'], 2) . "</span></td>";
+                    echo "<td>" . date('d M Y', strtotime($row['SaleDate'])) . "</td>";
+                    echo "<td>" . $row['CustomerName'] . "</td>";
 
-                        // Action buttons based on user role
-                        echo "<td>";
-                        if ($_SESSION['role'] === 'Admin' || $_SESSION['role'] === 'Manager') {
-                          echo "<a href='edit_sales_transaction.php?id=" . $row['TransactionID'] . "' class='btn btn-warning btn-sm'>Edit</a>
-                                <a href='delete_sales_transaction.php?id=" . $row['TransactionID'] . "' class='btn btn-danger btn-sm'>Delete</a>";
-                        } elseif ($_SESSION['role'] === 'Employee') {
-                          echo "View Only";  // Employee can only view
-                        }
-                        echo "</td>";
-                        echo "</tr>";
-                      }
-                    } else {
-                      echo "<tr><td colspan='7'>No transactions found.</td></tr>";
+                    echo "<td>";
+                    if ($_SESSION['role'] === 'Admin' || $_SESSION['role'] === 'Manager') {
+                      echo "<a href='edit_sales_transaction.php?id=" . $row['TransactionID'] . "' class='btn btn-gradient-warning btn-sm me-2'>
+                          <i class='mdi mdi-pencil'></i> Edit
+                        </a>
+                        <a href='delete_sales_transaction.php?id=" . $row['TransactionID'] . "' class='btn btn-gradient-danger btn-sm'>
+                          <i class='mdi mdi-delete'></i> Delete
+                        </a>";
+                    } elseif ($_SESSION['role'] === 'Employee') {
+                      echo "<span class='badge badge-info'>View Only</span>";
+                    }
+                    echo "</td>";
+                    echo "</tr>";
                     }
                   } else {
-                    echo "<tr><td colspan='7'>Query not defined for this user role.</td></tr>";
+                    echo "<tr><td colspan='7' class='text-center text-muted'>No transactions found.</td></tr>";
+                  }
+                  } else {
+                  echo "<tr><td colspan='7' class='text-center text-danger'>Query not defined for this user role.</td></tr>";
                   }
                   ?>
                 </tbody>
-              </table>
+                </table>
+              </div>
+              </div>
             </div>
-          </div>
+            </div>
         </div>
       </div>
     </div>
