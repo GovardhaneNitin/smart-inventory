@@ -140,6 +140,62 @@ if ($role === 'Admin' || $role === 'Manager') {
                     </div>
                 </div>
 
+                <!-- Quick Actions Section -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card shadow border-0" style="border-radius: 15px;">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary mb-4">
+                                    <i class="mdi mdi-lightning-bolt text-warning me-2"></i>
+                                    Quick Actions
+                                </h4>
+                                <div class="row">
+                                    <div class="col-md-3 mb-3">
+                                        <a href="add_sales_transaction.php" class="text-decoration-none">
+                                            <div class="card bg-gradient-success text-white shadow-sm hover-card">
+                                                <div class="card-body text-center p-3">
+                                                    <i class="mdi mdi-cart-plus mdi-36px mb-2"></i>
+                                                    <h6 class="mb-0">New Sale</h6>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <a href="add_item.php" class="text-decoration-none">
+                                            <div class="card bg-gradient-info text-white shadow-sm hover-card">
+                                                <div class="card-body text-center p-3">
+                                                    <i class="mdi mdi-package-variant-closed mdi-36px mb-2"></i>
+                                                    <h6 class="mb-0">Add Inventory</h6>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <a href="add_supplier.php" class="text-decoration-none">
+                                            <div class="card bg-gradient-warning text-white shadow-sm hover-card">
+                                                <div class="card-body text-center p-3">
+                                                    <i class="mdi mdi-account-plus mdi-36px mb-2"></i>
+                                                    <h6 class="mb-0">Add Supplier</h6>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <a href="report.php" class="text-decoration-none">
+                                            <div class="card bg-gradient-primary text-white shadow-sm hover-card">
+                                                <div class="card-body text-center p-3">
+                                                    <i class="mdi mdi-file-document mdi-36px mb-2"></i>
+                                                    <h6 class="mb-0">Generate Report</h6>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Common content continues below -->
                 <div class="row">
                     <!-- Low Stock Items Section -->
@@ -262,12 +318,72 @@ if ($role === 'Admin' || $role === 'Manager') {
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-5 grid-margin stretch-card">
+                        <div class="card shadow border-0" style="border-radius: 15px;">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="mdi mdi-chart-bar text-warning me-2"></i>
+                                    Inventory Status Overview
+                                </h4>
+                                <canvas id="inventoryChart" style="height: 250px;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Inventory Status Chart Section -->
+                <div class="row mt-6">
+                    <div class="col-md-6 grid-margin stretch-card">
+                        <div class="card shadow border-0" style="border-radius: 15px;">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="mdi mdi-trending-up text-success me-2"></i>
+                                    Monthly Sales Trend
+                                </h4>
+                                <canvas id="salesChart" style="height: 250px;"></canvas>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- More common content -->
             </div>
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Initialize charts
+document.addEventListener('DOMContentLoaded', function() {
+    // Inventory Status Chart
+    new Chart(document.getElementById('inventoryChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['In Stock', 'Low Stock', 'Out of Stock'],
+            datasets: [{
+                data: [65, 25, 10],
+                backgroundColor: [
+                    '#4CAF50',
+                    '#FFC107', 
+                    '#F44336'
+                ]
+            }]
+        }
+    });
+
+    // Sales Trend Chart  
+    new Chart(document.getElementById('salesChart'), {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            datasets: [{
+                label: 'Sales',
+                data: [30, 45, 35, 50, 40, 60],
+                borderColor: '#2196F3',
+                tension: 0.4
+            }]
+        }
+    });
+});
+</script>
 <?php include 'footer.php'; ?>
 </body>
 </html>
