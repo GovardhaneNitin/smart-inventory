@@ -81,19 +81,31 @@ $totalRevenueJson = json_encode($totalRevenue);
                 <div class="row">
                     <?php foreach ($topProducts as $row): ?>
                         <div class="col-md-4 stretch-card grid-margin">
-                            <div class="card card3">
+                            <div class="card card3 bg-gradient-light shadow">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center mb-4">
-                                        <img src="<?php echo htmlspecialchars($row['Image']); ?>" alt="<?php echo htmlspecialchars($row['ItemName']); ?>" class="img-fluid" style="width: 70px; height: 70px; object-fit: cover;">
+                                        <img src="<?php echo htmlspecialchars($row['Image']); ?>" 
+                                             alt="<?php echo htmlspecialchars($row['ItemName']); ?>" 
+                                             class="img-fluid rounded-circle border border-primary p-2" 
+                                             style="width: 80px; height: 80px; object-fit: cover;">
                                         <div class="ms-3">
-                                            <h4 class="card-title mb-0"><?php echo htmlspecialchars($row['ItemName']); ?></h4>
-                                            <p class="text-muted"><?php echo htmlspecialchars($row['Category']); ?></p>
+                                            <h4 class="card-title mb-0 text-primary"><?php echo htmlspecialchars($row['ItemName']); ?></h4>
+                                            <p class="text-muted"><i class="mdi mdi-tag"></i> <?php echo htmlspecialchars($row['Category']); ?></p>
                                         </div>
                                     </div>
                                     <ul class="list-unstyled">
-                                        <li><i class="mdi mdi-cash text-primary"></i> Total Revenue: <strong>₹<?php echo number_format($row['TotalRevenue'], 2); ?></strong></li>
-                                        <li><i class="mdi mdi-chart-line text-primary"></i> Total Sold: <strong><?php echo htmlspecialchars($row['TotalSold']); ?></strong></li>
-                                        <li><i class="mdi mdi-cube-outline text-primary"></i> Quantity Left: <strong><?php echo htmlspecialchars($row['Quantity']); ?></strong></li>
+                                        <li class="mb-3 p-2 bg-light rounded d-flex justify-content-between align-items-center">
+                                            <span><i class="mdi mdi-cash text-success"></i> Total Revenue:</span>
+                                            <span class="text-success">₹<?php echo number_format($row['TotalRevenue'], 2); ?></span>
+                                        </li>
+                                        <li class="mb-3 p-2 bg-light rounded d-flex justify-content-between align-items-center">
+                                            <span><i class="mdi mdi-chart-line text-info"></i> Total Sold:</span>
+                                            <span class="text-info"><?php echo htmlspecialchars($row['TotalSold']); ?></span>
+                                        </li>
+                                        <li class="p-2 bg-light rounded d-flex justify-content-between align-items-center">
+                                            <span><i class="mdi mdi-cube-outline text-warning"></i> Quantity Left:</span>
+                                            <span class="text-warning"><?php echo htmlspecialchars($row['Quantity']); ?></span>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -104,30 +116,56 @@ $totalRevenueJson = json_encode($totalRevenue);
                 <!-- Rest of the Products in Table Format -->
                 <div class="row mt-4">
                     <div class="col-12">
-                        <div class="card">
+                        <div class="card shadow-sm">
                             <div class="card-body">
-                                <h4 class="card-title">Product Details</h4>
+                                <h4 class="card-title mb-4">
+                                    <i class="mdi mdi-format-list-bulleted text-primary"></i>
+                                    Other Products Performance
+                                </h4>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-striped">
-                                        <thead>
+                                    <table class="table table-striped">
+                                        <thead class="bg-gradient-primary text-white">
                                             <tr>
-                                                <th>Image</th>
-                                                <th>Product Name</th>
-                                                <th>Total Sold</th>
-                                                <th>Quantity Left</th>
-                                                <th>Total Revenue</th>
+                                                <th class="align-middle text-center">Image</th>
+                                                <th class="align-middle">Product Name</th>
+                                                <th class="align-middle text-center">
+                                                    <i class="mdi mdi-chart-line"></i> Total Sold
+                                                </th>
+                                                <th class="align-middle text-center">
+                                                    <i class="mdi mdi-cube-outline"></i> In Stock
+                                                </th>
+                                                <th class="align-middle text-center">
+                                                    <i class="mdi mdi-currency-inr"></i> Revenue
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php foreach ($restProducts as $product): ?>
-                                                <tr>
-                                                    <td>
-                                                        <img src="<?php echo htmlspecialchars($product['Image']); ?>" class="img-fluid rounded" style="width: 50px; height: 50px; object-fit: cover;" alt="Product Image">
+                                                <tr class="align-middle">
+                                                    <td class="text-center">
+                                                        <img src="<?php echo htmlspecialchars($product['Image']); ?>" 
+                                                             class="rounded-circle border border-primary p-1" 
+                                                             style="width: 50px; height: 50px; object-fit: cover;" 
+                                                             alt="<?php echo htmlspecialchars($product['ItemName']); ?>">
                                                     </td>
-                                                    <td><?php echo htmlspecialchars($product['ItemName']); ?></td>
-                                                    <td><?php echo $product['TotalSold']; ?></td>
-                                                    <td><?php echo $product['Quantity']; ?></td>
-                                                    <td>₹<?php echo number_format($product['TotalRevenue'], 2); ?></td>
+                                                    <td>
+                                                        <?php echo htmlspecialchars($product['ItemName']); ?>
+                                                        <br>
+                                                        <small class="text-muted"><?php echo htmlspecialchars($product['Category']); ?></small>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span class="badge bg-info">
+                                                            <?php echo $product['TotalSold']; ?>
+                                                        </span>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span class="badge bg-warning">
+                                                            <?php echo $product['Quantity']; ?>
+                                                        </span>
+                                                    </td>
+                                                    <td class="text-center text-success">
+                                                        ₹<?php echo number_format($product['TotalRevenue'], 2); ?>
+                                                    </td>
                                                 </tr>
                                             <?php endforeach; ?>
                                         </tbody>
@@ -141,28 +179,50 @@ $totalRevenueJson = json_encode($totalRevenue);
                 <!-- Sales Summary Charts -->
                 <div class="row mt-4">
                     <div class="col-md-6 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Total Items Sold</h4>
-                                <canvas id="totalSoldChart"></canvas>
+                        <div class="card shadow-lg border-0 rounded-lg">
+                            <div class="card-body bg-gradient-light">
+                                <h4 class="card-title mb-4">
+                                    <i class="mdi mdi-chart-bar text-primary me-2"></i>
+                                    Total Items Sold
+                                </h4>
+                                <div class="p-3 bg-white rounded shadow-sm">
+                                    <canvas id="totalSoldChart" height="300"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Quantity Left in Inventory</h4>
-                                <canvas id="quantityLeftChart"></canvas>
+                        <div class="card shadow-lg border-0 rounded-lg">
+                            <div class="card-body bg-gradient-light">
+                                <h4 class="card-title mb-4">
+                                    <i class="mdi mdi-package-variant text-warning me-2"></i>
+                                    Quantity Left in Inventory
+                                </h4>
+                                <div class="p-3 bg-white rounded shadow-sm">
+                                    <canvas id="quantityLeftChart" height="300"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mt-4">
                     <div class="col-md-12 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Total Revenue per Product</h4>
-                                <canvas id="totalRevenueChart"></canvas>
+                        <div class="card shadow-lg border-0 rounded-lg">
+                            <div class="card-body bg-gradient-light">
+                                <h4 class="card-title mb-4">
+                                    <i class="mdi mdi-chart-line text-success me-2"></i>
+                                    Revenue Analysis
+                                </h4>
+                                <div class="p-4 bg-white rounded shadow-sm">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="text-muted">Product Revenue Distribution</span>
+                                        <div class="badge bg-success px-3 py-2">
+                                            <i class="mdi mdi-currency-inr"></i>
+                                            Total Revenue: ₹<?php echo number_format(array_sum($totalRevenue), 2); ?>
+                                        </div>
+                                    </div>
+                                    <canvas id="totalRevenueChart" height="250"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
