@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 13, 2024 at 08:58 PM
+-- Generation Time: Nov 24, 2024 at 06:33 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -102,22 +102,6 @@ CREATE TABLE `report` (
   `DateRangeStart` date NOT NULL,
   `DateRangeEnd` date NOT NULL,
   `GeneratedAt` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `restockalert`
---
-
-CREATE TABLE `restockalert` (
-  `AlertID` int(11) NOT NULL,
-  `ItemID` int(11) DEFAULT NULL,
-  `QuantityThreshold` int(11) NOT NULL,
-  `AlertDate` date NOT NULL,
-  `Status` enum('Pending','Resolved') DEFAULT 'Pending',
-  `CreatedAt` timestamp NOT NULL DEFAULT current_timestamp(),
-  `UpdatedAt` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -283,13 +267,6 @@ ALTER TABLE `report`
   ADD KEY `idx_report_type` (`ReportType`);
 
 --
--- Indexes for table `restockalert`
---
-ALTER TABLE `restockalert`
-  ADD PRIMARY KEY (`AlertID`),
-  ADD KEY `idx_item_id` (`ItemID`);
-
---
 -- Indexes for table `salestransaction`
 --
 ALTER TABLE `salestransaction`
@@ -351,12 +328,6 @@ ALTER TABLE `report`
   MODIFY `ReportID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `restockalert`
---
-ALTER TABLE `restockalert`
-  MODIFY `AlertID` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `salestransaction`
 --
 ALTER TABLE `salestransaction`
@@ -408,12 +379,6 @@ ALTER TABLE `prediction`
 --
 ALTER TABLE `report`
   ADD CONSTRAINT `report_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`) ON DELETE CASCADE;
-
---
--- Constraints for table `restockalert`
---
-ALTER TABLE `restockalert`
-  ADD CONSTRAINT `restockalert_ibfk_1` FOREIGN KEY (`ItemID`) REFERENCES `inventoryitem` (`ItemID`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `salestransaction`
