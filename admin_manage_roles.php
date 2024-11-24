@@ -91,79 +91,90 @@ $usersResult = mysqli_query($con, $usersQuery);
                         </h3>
                     </div>
                     <div class="container">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Username</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php while ($user = mysqli_fetch_assoc($usersResult)): ?>
-                                    <tr>
-                                        <td><?php echo $user['Username']; ?></td>
-                                        <td><?php echo $user['Email']; ?></td>
-                                        <td><?php echo $user['Role']; ?></td>
-                                        <td>
-                                            <?php if ($user['Role'] === 'Employee'): ?>
-                                                <!-- Promote to Manager -->
-                                                <form method="POST" action="" style="display:inline;">
-                                                    <input type="hidden" name="user_id" value="<?php echo $user['UserID']; ?>">
-                                                    <input type="hidden" name="action" value="promote">
-                                                    <button type="submit" class="btn btn-success btn-sm">Promote to Manager</button>
-                                                </form>
-                                            <?php elseif ($user['Role'] === 'Manager'): ?>
-                                                <!-- Demote to Employee -->
-                                                <form method="POST" action="" style="display:inline;">
-                                                    <input type="hidden" name="user_id" value="<?php echo $user['UserID']; ?>">
-                                                    <input type="hidden" name="action" value="demote">
-                                                    <button type="submit" class="btn btn-warning btn-sm">Demote to Employee</button>
-                                                </form>
-                                            <?php endif; ?>
-                                            
-                                            <!-- Remove User -->
-                                            <form method="POST" action="" style="display:inline;">
-                                                <input type="hidden" name="user_id" value="<?php echo $user['UserID']; ?>">
-                                                <input type="hidden" name="action" value="remove">
-                                                <button type="submit" class="btn btn-danger btn-sm">Remove User</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                <?php endwhile; ?>
-                            </tbody>
-                        </table>
+                        <div class="card">
+                            <div class="card-body">
+                                <table class="table table-hover">
+                                    <thead class="bg-gradient-primary text-white">
+                                        <tr>
+                                            <th>Username</th>
+                                            <th>Email</th>
+                                            <th>Role</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php while ($user = mysqli_fetch_assoc($usersResult)): ?>
+                                            <tr>
+                                                <td class="align-middle"><?php echo $user['Username']; ?></td>
+                                                <td class="align-middle"><?php echo $user['Email']; ?></td>
+                                                <td class="align-middle">
+                                                    <span class="badge <?php echo $user['Role'] === 'Manager' ? 'bg-success' : 'bg-info'; ?>">
+                                                        <?php echo $user['Role']; ?>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group" role="group">
+                                                        <?php if ($user['Role'] === 'Employee'): ?>
+                                                            <form method="POST" action="" class="me-2">
+                                                                <input type="hidden" name="user_id" value="<?php echo $user['UserID']; ?>">
+                                                                <input type="hidden" name="action" value="promote">
+                                                                <button type="submit" class="btn btn-gradient-success btn-sm">Promote to Manager</button>
+                                                            </form>
+                                                        <?php elseif ($user['Role'] === 'Manager'): ?>
+                                                            <form method="POST" action="" class="me-2">
+                                                                <input type="hidden" name="user_id" value="<?php echo $user['UserID']; ?>">
+                                                                <input type="hidden" name="action" value="demote">
+                                                                <button type="submit" class="btn btn-gradient-warning btn-sm">Demote to Employee</button>
+                                                            </form>
+                                                        <?php endif; ?>
+                                                        
+                                                        <form method="POST" action="">
+                                                            <input type="hidden" name="user_id" value="<?php echo $user['UserID']; ?>">
+                                                            <input type="hidden" name="action" value="remove">
+                                                            <button type="submit" class="btn btn-gradient-danger btn-sm">Remove</button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        <?php endwhile; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                         
                         <!-- Activity Log -->
-                        <h2 class="my-4">Activity Log</h2>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Username</th> 
-                                    <th>Action</th>
-                                    <th>Performed By</th>
-                                    <th>Timestamp</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $logQuery = "
-                                    SELECT activity_log.*, User.Username 
-                                    FROM activity_log 
-                                    INNER JOIN User ON activity_log.user_id = User.UserID 
-                                    ORDER BY timestamp DESC";
-                                $logResult = mysqli_query($con, $logQuery);
-                                while ($log = mysqli_fetch_assoc($logResult)): ?>
-                                    <tr>
-                                        <td><?php echo $log['Username']; ?></td>
-                                        <td><?php echo $log['action']; ?></td>
-                                        <td>Admin</td>
-                                        <td><?php echo $log['timestamp']; ?></td>
-                                    </tr>
-                                <?php endwhile; ?>
-                            </tbody>
-                        </table>
+                        <div class="card mt-4">
+                            <div class="card-body">
+                                <h4 class="card-title">Activity Log</h4>
+                                <table class="table table-striped table-hover">
+                                    <thead class="bg-gradient-primary text-white">
+                                        <tr>
+                                            <th>Username</th> 
+                                            <th>Action</th>
+                                            <th>Performed By</th>
+                                            <th>Timestamp</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $logQuery = "
+                                            SELECT activity_log.*, User.Username 
+                                            FROM activity_log 
+                                            INNER JOIN User ON activity_log.user_id = User.UserID 
+                                            ORDER BY timestamp DESC";
+                                        $logResult = mysqli_query($con, $logQuery);
+                                        while ($log = mysqli_fetch_assoc($logResult)): ?>
+                                            <tr>
+                                                <td><?php echo $log['Username']; ?></td>
+                                                <td><span class="badge bg-primary"><?php echo $log['action']; ?></span></td>
+                                                <td>Admin</td>
+                                                <td><?php echo date('M d, Y H:i:s', strtotime($log['timestamp'])); ?></td>
+                                            </tr>
+                                        <?php endwhile; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
