@@ -105,235 +105,235 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['profile_image'])) {
             </h3>
           </div>
 
-          <div class="row justify-content-center">
+            <div class="row justify-content-center">
             <div class="col-md-8">
               <div class="card shadow-lg">
-                <div class="card-header p-3 bg-gradient-primary text-white">
-                  <h3 class="text-center text-uppercase font-weight-bold mt-2">
-                    <?php echo !empty($user['FirstName']) ? htmlspecialchars($user['FirstName']) : '<span class="text-secondary">Add your First Name</span>'; ?>
-                    <?php echo !empty($user['LastName']) ? htmlspecialchars($user['LastName']) : '<span class="text-secondary">Add your Last Name</span>'; ?>
-                  </h3>
-                </div>
-                <div class="card-body">
-                  <div class="text-center mb-4">
-                    <div class="profile-pic-container">
-                      <?php if (!empty($user['ProfileImage'])): ?>
-                        <img src="assets/images/Profile-pics/<?php echo htmlspecialchars($user['ProfileImage']); ?>" class="rounded-circle" alt="Profile Image">
-                      <?php else: ?>
-                        <img src="assets/images/Profile-pics/default-profile.png" class="rounded-circle" alt="Default Profile Image">
-                      <?php endif; ?>
-                      <div class="edit-overlay" onclick="document.getElementById('profilePicForm').style.display='block';">
-                        <?php echo !empty($user['ProfileImage']) ? 'Edit Profile Picture' : 'Add Profile Picture'; ?>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Profile Picture Upload Form -->
-                  <form id="profilePicForm" method="POST" enctype="multipart/form-data" style="display:none;">
-                    <div class="form-group">
-                      <label for="profile_image">Choose Profile Picture</label>
-                      <input type="file" class="form-control" name="profile_image" required>
-                    </div>
-                    <div class="text-center mt-3">
-                      <button type="submit" class="btn btn-primary">Upload</button>
-                      <button type="button" class="btn btn-secondary" onclick="document.getElementById('profilePicForm').style.display='none';">Cancel</button>
-                    </div>
-                  </form>
-
-                  <!-- Error message if upload fails -->
-                  <?php if (!empty($error)): ?>
-                    <div class="alert alert-danger mt-3"><?php echo htmlspecialchars($error); ?></div>
+              <div class="card-header p-3 bg-gradient-primary text-white">
+                <h3 class="text-center text-uppercase font-weight-bold mt-2">
+                <?php echo !empty($user['FirstName']) ? htmlspecialchars($user['FirstName']) : '<span class="text-secondary">Add your First Name</span>'; ?>
+                <?php echo !empty($user['LastName']) ? htmlspecialchars($user['LastName']) : '<span class="text-secondary">Add your Last Name</span>'; ?>
+                </h3>
+              </div>
+              <div class="card-body">
+                <div class="text-center mb-4">
+                <div class="profile-pic-container">
+                  <?php if (!empty($user['ProfileImage'])): ?>
+                  <img src="assets/images/Profile-pics/<?php echo htmlspecialchars($user['ProfileImage']); ?>" class="rounded-circle" alt="Profile Image">
+                  <?php else: ?>
+                  <img src="assets/images/Profile-pics/default-profile.png" class="rounded-circle" alt="Default Profile Image">
                   <?php endif; ?>
+                  <div class="edit-overlay" onclick="document.getElementById('profilePicForm').style.display='block';">
+                  <?php echo !empty($user['ProfileImage']) ? 'Edit Profile Picture' : 'Add Profile Picture'; ?>
+                  </div>
+                </div>
+                </div>
 
-                  <div class="row mt-4">
-                    <!-- Username Card -->
-                    <div class="col-md-6 col-12 mb-3">
-                      <div class="card p-3">
-                        <div class="d-flex align-items-center">
-                          <i class="mdi mdi-account me-3 text-primary"></i>
-                          <div>
-                            <h5 class="mb-0">Username</h5>
-                            <p class="mb-0 text-secondary">
-                              <?php echo !empty($user['Username']) ? htmlspecialchars($user['Username']) : '<span class="text-secondary">Add your Username</span>'; ?>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                <!-- Profile Picture Upload Form -->
+                <form id="profilePicForm" method="POST" enctype="multipart/form-data" style="display:none;">
+                <div class="form-group">
+                  <label for="profile_image">Choose Profile Picture</label>
+                  <input type="file" class="form-control" name="profile_image" required>
+                </div>
+                <div class="text-center mt-3">
+                  <button type="submit" class="btn btn-primary">Upload</button>
+                  <button type="button" class="btn btn-secondary" onclick="document.getElementById('profilePicForm').style.display='none';">Cancel</button>
+                </div>
+                </form>
 
-                    <!-- Email Card -->
-                    <div class="col-md-6 col-12 mb-3">
-                      <div class="card p-3">
-                        <div class="d-flex align-items-center">
-                          <i class="mdi mdi-email me-3 text-primary"></i>
-                          <div>
-                            <h5 class="mb-0">Email</h5>
-                            <p class="mb-0 text-secondary">
-                              <?php echo !empty($user['Email']) ? htmlspecialchars($user['Email']) : '<span class="text-secondary">Add your Email</span>'; ?>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                <!-- Error message if upload fails -->
+                <?php if (!empty($error)): ?>
+                <div class="alert alert-danger mt-3"><?php echo htmlspecialchars($error); ?></div>
+                <?php endif; ?>
 
-                    <!-- First Name Card -->
-                    <div class="col-md-6 col-12 mb-3">
-                      <div class="card p-3">
-                        <div class="d-flex align-items-center">
-                          <i class="mdi mdi-account-circle me-3 text-primary"></i>
-                          <div>
-                            <h5 class="mb-0">First Name</h5>
-                            <p class="mb-0 text-secondary">
-                              <?php echo !empty($user['FirstName']) ? htmlspecialchars($user['FirstName']) : '<span class="text-secondary">Add your First Name</span>'; ?>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Last Name Card -->
-                    <div class="col-md-6 col-12 mb-3">
-                      <div class="card p-3">
-                        <div class="d-flex align-items-center">
-                          <i class="mdi mdi-account-circle-outline me-3 text-primary"></i>
-                          <div>
-                            <h5 class="mb-0">Last Name</h5>
-                            <p class="mb-0 text-secondary">
-                              <?php echo !empty($user['LastName']) ? htmlspecialchars($user['LastName']) : '<span class="text-secondary">Add your Last Name</span>'; ?>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Phone Number Card -->
-                    <div class="col-md-6 col-12 mb-3">
-                      <div class="card p-3">
-                        <div class="d-flex align-items-center">
-                          <i class="mdi mdi-phone me-3 text-primary"></i>
-                          <div>
-                            <h5 class="mb-0">Phone Number</h5>
-                            <p class="mb-0 text-secondary">
-                              <?php echo !empty($user['PhoneNumber']) ? htmlspecialchars($user['PhoneNumber']) : '<span class="text-secondary">Add your Phone Number</span>'; ?>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Address Card -->
-                    <div class="col-md-6 col-12 mb-3">
-                      <div class="card p-3">
-                        <div class="d-flex align-items-center">
-                          <i class="mdi mdi-map-marker me-3 text-primary"></i>
-                          <div>
-                            <h5 class="mb-0">Address</h5>
-                            <p class="mb-0 text-secondary">
-                              <?php echo !empty($user['Address']) ? htmlspecialchars($user['Address']) : '<span class="text-secondary">Add your Address</span>'; ?>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Gender Card -->
-                    <div class="col-md-6 col-12 mb-3">
-                      <div class="card p-3">
-                        <div class="d-flex align-items-center">
-                          <i class="mdi mdi-gender-male-female me-3 text-primary"></i>
-                          <div>
-                            <h5 class="mb-0">Gender</h5>
-                            <p class="mb-0 text-secondary">
-                              <?php echo !empty($user['Gender']) ? htmlspecialchars($user['Gender']) : '<span class="text-secondary">Add your Gender</span>'; ?>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Date of Birth Card -->
-                    <div class="col-md-6 col-12 mb-3">
-                      <div class="card p-3">
-                        <div class="d-flex align-items-center">
-                          <i class="mdi mdi-calendar me-3 text-primary"></i>
-                          <div>
-                            <h5 class="mb-0">Date of Birth</h5>
-                            <p class="mb-0 text-secondary">
-                              <?php echo !empty($user['DateOfBirth']) ? htmlspecialchars($user['DateOfBirth']) : '<span class="text-secondary">Add your Date of Birth</span>'; ?>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Job Title Card -->
-                    <div class="col-md-6 col-12 mb-3">
-                      <div class="card p-3">
-                        <div class="d-flex align-items-center">
-                          <i class="mdi mdi-briefcase me-3 text-primary"></i>
-                          <div>
-                            <h5 class="mb-0">Job Title</h5>
-                            <p class="mb-0 text-secondary">
-                              <?php echo !empty($user['JobTitle']) ? htmlspecialchars($user['JobTitle']) : '<span class="text-secondary">Add your Job Title</span>'; ?>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Department Card -->
-                    <div class="col-md-6 col-12 mb-3">
-                      <div class="card p-3">
-                        <div class="d-flex align-items-center">
-                          <i class="mdi mdi-office-building me-3 text-primary"></i>
-                          <div>
-                            <h5 class="mb-0">Department</h5>
-                            <p class="mb-0 text-secondary">
-                              <?php echo !empty($user['Department']) ? htmlspecialchars($user['Department']) : '<span class="text-secondary">Add your Department</span>'; ?>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Profile Created At Card -->
-                    <div class="col-md-6 col-12 mb-3">
-                      <div class="card p-3">
-                        <div class="d-flex align-items-center">
-                          <i class="mdi mdi-calendar-check me-3 text-primary"></i>
-                          <div>
-                            <h5 class="mb-0">Profile Created At</h5>
-                            <p class="mb-0 text-secondary">
-                              <?php echo !empty($user['CreatedAt']) ? htmlspecialchars($user['CreatedAt']) : '<span class="text-secondary">Not Available</span>'; ?>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Profile Last Updated Card -->
-                    <div class="col-md-6 col-12 mb-3">
-                      <div class="card p-3">
-                        <div class="d-flex align-items-center">
-                          <i class="mdi mdi-calendar-edit me-3 text-primary"></i>
-                          <div>
-                            <h5 class="mb-0">Profile Last Updated</h5>
-                            <p class="mb-0 text-secondary">
-                              <?php echo !empty($user['UpdatedAt']) ? htmlspecialchars($user['UpdatedAt']) : '<span class="text-secondary">Not Available</span>'; ?>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
+                <div class="row mt-4">
+                <!-- Username Card -->
+                <div class="col-md-6 col-12 mb-3">
+                  <div class="card p-3 shadow-sm">
+                  <div class="d-flex align-items-center">
+                    <i class="mdi mdi-account me-3 text-primary"></i>
+                    <div>
+                    <h5 class="mb-0">Username</h5>
+                    <p class="mb-0 text-secondary">
+                      <?php echo !empty($user['Username']) ? htmlspecialchars($user['Username']) : '<span class="text-secondary">Add your Username</span>'; ?>
+                    </p>
                     </div>
                   </div>
-
-                  <div class="text-center mt-4">
-                    <a href="edit_profile.php" class="btn btn-warning"><i class="mdi mdi-pencil"></i> Edit Profile</a>
                   </div>
+                </div>
+
+                <!-- Email Card -->
+                <div class="col-md-6 col-12 mb-3">
+                  <div class="card p-3 shadow-sm">
+                  <div class="d-flex align-items-center">
+                    <i class="mdi mdi-email me-3 text-primary"></i>
+                    <div>
+                    <h5 class="mb-0">Email</h5>
+                    <p class="mb-0 text-secondary">
+                      <?php echo !empty($user['Email']) ? htmlspecialchars($user['Email']) : '<span class="text-secondary">Add your Email</span>'; ?>
+                    </p>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+
+                <!-- First Name Card -->
+                <div class="col-md-6 col-12 mb-3">
+                  <div class="card p-3 shadow-sm">
+                  <div class="d-flex align-items-center">
+                    <i class="mdi mdi-account-circle me-3 text-primary"></i>
+                    <div>
+                    <h5 class="mb-0">First Name</h5>
+                    <p class="mb-0 text-secondary">
+                      <?php echo !empty($user['FirstName']) ? htmlspecialchars($user['FirstName']) : '<span class="text-secondary">Add your First Name</span>'; ?>
+                    </p>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+
+                <!-- Last Name Card -->
+                <div class="col-md-6 col-12 mb-3">
+                  <div class="card p-3 shadow-sm">
+                  <div class="d-flex align-items-center">
+                    <i class="mdi mdi-account-circle-outline me-3 text-primary"></i>
+                    <div>
+                    <h5 class="mb-0">Last Name</h5>
+                    <p class="mb-0 text-secondary">
+                      <?php echo !empty($user['LastName']) ? htmlspecialchars($user['LastName']) : '<span class="text-secondary">Add your Last Name</span>'; ?>
+                    </p>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+
+                <!-- Phone Number Card -->
+                <div class="col-md-6 col-12 mb-3">
+                  <div class="card p-3 shadow-sm">
+                  <div class="d-flex align-items-center">
+                    <i class="mdi mdi-phone me-3 text-primary"></i>
+                    <div>
+                    <h5 class="mb-0">Phone Number</h5>
+                    <p class="mb-0 text-secondary">
+                      <?php echo !empty($user['PhoneNumber']) ? htmlspecialchars($user['PhoneNumber']) : '<span class="text-secondary">Add your Phone Number</span>'; ?>
+                    </p>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+
+                <!-- Address Card -->
+                <div class="col-md-6 col-12 mb-3">
+                  <div class="card p-3 shadow-sm">
+                  <div class="d-flex align-items-center">
+                    <i class="mdi mdi-map-marker me-3 text-primary"></i>
+                    <div>
+                    <h5 class="mb-0">Address</h5>
+                    <p class="mb-0 text-secondary">
+                      <?php echo !empty($user['Address']) ? htmlspecialchars($user['Address']) : '<span class="text-secondary">Add your Address</span>'; ?>
+                    </p>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+
+                <!-- Gender Card -->
+                <div class="col-md-6 col-12 mb-3">
+                  <div class="card p-3 shadow-sm">
+                  <div class="d-flex align-items-center">
+                    <i class="mdi mdi-gender-male-female me-3 text-primary"></i>
+                    <div>
+                    <h5 class="mb-0">Gender</h5>
+                    <p class="mb-0 text-secondary">
+                      <?php echo !empty($user['Gender']) ? htmlspecialchars($user['Gender']) : '<span class="text-secondary">Add your Gender</span>'; ?>
+                    </p>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+
+                <!-- Date of Birth Card -->
+                <div class="col-md-6 col-12 mb-3">
+                  <div class="card p-3 shadow-sm">
+                  <div class="d-flex align-items-center">
+                    <i class="mdi mdi-calendar me-3 text-primary"></i>
+                    <div>
+                    <h5 class="mb-0">Date of Birth</h5>
+                    <p class="mb-0 text-secondary">
+                      <?php echo !empty($user['DateOfBirth']) ? htmlspecialchars($user['DateOfBirth']) : '<span class="text-secondary">Add your Date of Birth</span>'; ?>
+                    </p>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+
+                <!-- Job Title Card -->
+                <div class="col-md-6 col-12 mb-3">
+                  <div class="card p-3 shadow-sm">
+                  <div class="d-flex align-items-center">
+                    <i class="mdi mdi-briefcase me-3 text-primary"></i>
+                    <div>
+                    <h5 class="mb-0">Job Title</h5>
+                    <p class="mb-0 text-secondary">
+                      <?php echo !empty($user['JobTitle']) ? htmlspecialchars($user['JobTitle']) : '<span class="text-secondary">Add your Job Title</span>'; ?>
+                    </p>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+
+                <!-- Department Card -->
+                <div class="col-md-6 col-12 mb-3">
+                  <div class="card p-3 shadow-sm">
+                  <div class="d-flex align-items-center">
+                    <i class="mdi mdi-office-building me-3 text-primary"></i>
+                    <div>
+                    <h5 class="mb-0">Department</h5>
+                    <p class="mb-0 text-secondary">
+                      <?php echo !empty($user['Department']) ? htmlspecialchars($user['Department']) : '<span class="text-secondary">Add your Department</span>'; ?>
+                    </p>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+
+                <!-- Profile Created At Card -->
+                <div class="col-md-6 col-12 mb-3">
+                  <div class="card p-3 shadow-sm">
+                  <div class="d-flex align-items-center">
+                    <i class="mdi mdi-calendar-check me-3 text-primary"></i>
+                    <div>
+                    <h5 class="mb-0">Profile Created At</h5>
+                    <p class="mb-0 text-secondary">
+                      <?php echo !empty($user['CreatedAt']) ? htmlspecialchars($user['CreatedAt']) : '<span class="text-secondary">Not Available</span>'; ?>
+                    </p>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+
+                <!-- Profile Last Updated Card -->
+                <div class="col-md-6 col-12 mb-3">
+                  <div class="card p-3 shadow-sm">
+                  <div class="d-flex align-items-center">
+                    <i class="mdi mdi-calendar-edit me-3 text-primary"></i>
+                    <div>
+                    <h5 class="mb0">Profile Last Updated</h5>
+                    <p class="mb-0 text-secondary">
+                      <?php echo !empty($user['UpdatedAt']) ? htmlspecialchars($user['UpdatedAt']) : '<span class="text-secondary">Not Available</span>'; ?>
+                    </p>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+                </div>
+
+                <div class="text-center mt-4">
+                <a href="edit_profile.php" class="btn btn-warning"><i class="mdi mdi-pencil"></i> Edit Profile</a>
                 </div>
               </div>
+              </div>
             </div>
-          </div>
+            </div>
 
         </div>
       </div>
