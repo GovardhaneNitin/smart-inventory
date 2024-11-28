@@ -71,31 +71,6 @@
         <i class="mdi mdi-chart-bar menu-icon"></i>
       </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-        <span class="menu-title">Pages</span>
-        <i class="menu-arrow"></i>
-      </a>
-      <div class="collapse" id="auth">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item">
-            <a class="nav-link" href="login.php"> Login </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="register.php"> Register </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pages/error-404.php"> 404 </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pages/error-500.php"> 500 </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pages/no_access.php"> 403 </a>
-          </li>
-        </ul>
-      </div>
-    </li>
 
     <!-- Account only shown on small screens -->
     <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
