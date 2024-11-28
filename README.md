@@ -153,5 +153,5 @@ This project is licensed - see [LICENSE](LICENSE) for details.
 ---
 
 <div align="center">
-Made with ❤️ by the Nitin Govardhane
+Made with ❤️ by Smart Inventory Group
 </div>
