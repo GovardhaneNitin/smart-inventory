@@ -117,20 +117,27 @@ cd smart-inventory
 - You can verify by checking the structure in phpMyAdmin
 ```
 
-# Contributors
+# 👥 Contributors
 
-## Core Team
+## 🌟 Core Team
 
-- **Jitesh Borse**
+<div align="center">
 
-  - Email: khushborse92@gmail.com
+### 👨‍💻 **Jitesh Borse**
 
-- **Vedanti Lakade**
+[![Email](https://img.shields.io/badge/Email-khushborse92%40gmail.com-red?style=flat-square&logo=gmail)](mailto:khushborse92@gmail.com)
 
-  - Email: lakadevedanti@gmail.com
+### 👩‍💻 **Vedanti Lakade**
 
-- **Shalaka Nikam**
-  - Email: shalakanikam48@gmail.com
+[![Email](https://img.shields.io/badge/Email-lakadevedanti%40gmail.com-red?style=flat-square&logo=gmail)](mailto:lakadevedanti@gmail.com)
+
+### 👩‍💻 **Shalaka Nikam**
+
+[![Email](https://img.shields.io/badge/Email-shalakanikam48%40gmail.com-red?style=flat-square&logo=gmail)](mailto:shalakanikam48@gmail.com)
+
+</div>
+
+---
 
 ## 📄 License
 
