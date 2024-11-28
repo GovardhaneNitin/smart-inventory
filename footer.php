@@ -81,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function() {
     font-size: 1.1rem;
     text-align: center;
     margin-top: 10px;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
 
 .static-txt {
@@ -94,5 +95,23 @@ document.addEventListener("DOMContentLoaded", function() {
     border-right: 2px solid #fc6d6d;
     white-space: nowrap;
     overflow: hidden;
+}
+
+/* Media queries for smaller screens */
+@media screen and (max-width: 576px) {
+    .animation-section {
+        font-size: 0.9rem;
+        gap: 5px;
+    }
+    
+    .footer {
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .animation-section {
+        font-size: 0.8rem;
+    }
 }
 </style>
