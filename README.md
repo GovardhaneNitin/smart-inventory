@@ -1,4 +1,10 @@
-# Smart Inventory 🚀
+<div align="center">
+
+# 🚀 SMART INVENTORY 🚀
+
+### Your Modern Inventory Management Solution
+
+</div>
 
 <div align="center">
 
