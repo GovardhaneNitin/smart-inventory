@@ -134,12 +134,12 @@ cd smart-inventory
 
 ## 📄 License
 
-This project is MIT licensed - see [LICENSE](LICENSE) for details.
+This project is licensed - see [LICENSE](LICENSE) for details.
 
 ## 🌐 Connect with Me
 
 - LinkedIn: [LinkedIn Profile](https://www.linkedin.com/in/nitingovardhane/)
-- GitHub: [GitHub Profile](https://github.com/GovardhaneNitin)
+- Twitter: [Twitter Profile](https://x.com/blackhawk_vk18)
 
 ---
 
