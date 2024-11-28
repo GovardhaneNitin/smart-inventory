@@ -1,3 +1,5 @@
+<?php include 'auth.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,24 +63,24 @@
                     $predictions = json_decode($predictions_json, true);
 
                     if (!empty($predictions)) {
-                      echo "<h4>Predicted Restock Requirements</h4>";
+                      echo "<h4 class='mb-4 text-primary'>Predicted Restock Requirements</h4>";
                       echo "<div class='table-responsive'>";
-                      echo "<table class='table table-bordered'>";
-                      echo "<thead>
-                              <tr>
-                                <th>Item Name</th>
-                                <th>Predicted Restock Date</th>
-                                <th>Predicted Quantity Needed</th>
-                              </tr>
-                            </thead>
-                            <tbody>";
+                      echo "<table class='table table-striped table-bordered'>";
+                      echo "<thead class='bg-gradient-primary text-white'>
+                          <tr>
+                          <th class='text-center' style='font-size: 16px; padding: 15px;'>Item Name</th>
+                          <th class='text-center' style='font-size: 16px; padding: 15px;'>Predicted Restock Date</th>
+                          <th class='text-center' style='font-size: 16px; padding: 15px;'>Predicted Quantity Needed</th>
+                          </tr>
+                        </thead>
+                        <tbody>";
 
                       foreach ($predictions as $prediction) {
-                        echo "<tr>
-                                <td>" . htmlspecialchars($prediction['ItemName']) . "</td>
-                                <td>" . htmlspecialchars($prediction['PredictedRestockDate']) . "</td>
-                                <td>" . htmlspecialchars($prediction['PredictedQuantity']) . "</td>
-                              </tr>";
+                      echo "<tr class='align-middle'>
+                          <td class='text-center' style='padding: 12px;'>" . htmlspecialchars($prediction['ItemName']) . "</td>
+                          <td class='text-center' style='padding: 12px;'>" . htmlspecialchars($prediction['PredictedRestockDate']) . "</td>
+                          <td class='text-center' style='padding: 12px;'><span class='badge bg-info'>" . htmlspecialchars($prediction['PredictedQuantity']) . "</span></td>
+                          </tr>";
                       }
 
                       echo "</tbody></table></div>";
@@ -86,12 +88,12 @@
                       // Form to submit prediction data to save in the database
                       echo "<form method='post' action='save_prediction.php' onsubmit='return confirm(\"Are you sure you want to save these predictions?\");'>";
                       echo "<input type='hidden' name='data' value='" . htmlspecialchars($predictions_json) . "'>";
-                      echo "<button type='submit' class='btn btn-primary mt-4'>Save Predictions</button>";
+                      echo "<button type='submit' class='btn btn-gradient-primary mt-4'>Save Predictions</button>";
                       echo "</form>";
                     } else {
                       echo "<p class='text-warning'>No predictions available to display.</p>";
                     }
-                  } else {
+                    } else {
                     echo "<p class='text-warning'>No predictions file found. Please run the analysis script first.</p>";
                   }
                   ?>
