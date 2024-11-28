@@ -117,17 +117,29 @@ cd smart-inventory
 - You can verify by checking the structure in phpMyAdmin
 ```
 
-## 🌟 Contributing
+# Contributors
 
-We welcome contributions! Please check our [Contributing Guidelines](CONTRIBUTING.md) for details.
+## Core Team
+
+- **Jitesh Borse**
+
+  - Email: khushborse92@gmail.com
+
+- **Vedanti Lakade**
+
+  - Email: lakadevedanti@gmail.com
+
+- **Shalaka Nikam**
+  - Email: shalakanikam48@gmail.com
 
 ## 📄 License
 
 This project is MIT licensed - see [LICENSE](LICENSE) for details.
 
-## 🤝 Support
+## 🌐 Connect with Me
 
-Need help? Join our [Discord community](https://discord.gg/smartinventory) or create an issue.
+- LinkedIn: [LinkedIn Profile](https://www.linkedin.com/in/nitingovardhane/)
+- GitHub: [GitHub Profile](https://github.com/GovardhaneNitin)
 
 ---
 
