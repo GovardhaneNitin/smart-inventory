@@ -134,9 +134,6 @@ cd smart-inventory
 **Vedanti Lakade**  
 [![Email](https://img.shields.io/badge/Email-lakadevedanti%40gmail.com-red?style=flat-square&logo=gmail)](mailto:lakadevedanti@gmail.com)
 
-**Shalaka Nikam**  
-[![Email](https://img.shields.io/badge/Email-shalakanikam48%40gmail.com-red?style=flat-square&logo=gmail)](mailto:shalakanikam48@gmail.com)
-
 </div>
 
 ---
