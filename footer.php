@@ -22,7 +22,7 @@
 
 <script>
 // JavaScript for Typewriting Effect
-const names = ["Nitin Govardhane", "Vedanti Lakade", "Jitesh Borse", "Shalaka Nikam"];
+const names = ["Nitin Govardhane", "Vedanti Lakade", "Jitesh Borse"];
 let currentIndex = 0;
 let charIndex = 0;
 const speed = 150;
